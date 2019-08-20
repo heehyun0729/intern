@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.emoney.hhkim.mybatis.AccountMapper">
+	<select id="list" resultType="com.emoney.hhkim.vo.AccountVo">
+		select * from account
+	</select>
+	<insert id="insert" parameterType="com.emoney.hhkim.vo.AccountVo">
+		insert into account values(account_seq.nextval, #{nickname}, #{name},
+		#{user_type}, #{phone}, #{id}, #{s_passwd}, '')
+	</insert>
+	<select id="idChk" resultType="com.emoney.hhkim.vo.AccountVo" parameterType="String">
+		select * from account where id = #{id}
+	</select>
+	<select id="nickChk" resultType="com.emoney.hhkim.vo.AccountVo" parameterType="String">
+		select * from account where nickname = #{nickname}
+	</select>
+	<select id="loginChk" parameterType="map" resultType="com.emoney.hhkim.vo.AccountVo">
+		select * from account where id = #{id} and s_passwd = #{s_passwd}
+	</select>
+	
+	<update id="updateLastLogin" parameterType="int">
+		update account set last_login = sysdate where accnt_id = #{accnt_id}
+	</update>
+</mapper>
