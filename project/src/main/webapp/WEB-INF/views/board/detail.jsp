@@ -3,26 +3,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
 function deleteConfirm(board_num, accnt_id) {
-	if(accnt_id == '' || accnt_id == null){
-		location.href = "<c:url value='/login'/>";
-	}else{
-		if(confirm("정말 삭제하시겠습니까?")){
-			$.ajax({
-				url: "<c:url value='/board/delete'/>",
-				dateType: "json",
-				data: {board_num: board_num},
-				success: function(data) {
-					var result = data.result;
-					if(result == 'success'){
-						location.href = "<c:url value='/board/list'/>";
-					}else{
-						location.href = "<c:url value='/error'/>";
-					}
+	if(confirm("정말 삭제하시겠습니까?")){
+		$.ajax({
+			url: "<c:url value='/board/delete'/>",
+			dateType: "json",
+			data: {board_num: board_num},
+			success: function(data) {
+				var result = data.result;
+				if(result == 'success'){
+					location.href = "<c:url value='/board/list'/>";
+				}else{
+					location.href = "<c:url value='/error'/>";
 				}
-			});
-		}else{
-			return;
-		}
+			}
+		});
+	}else{
+		return;
 	}
 }
 </script>
@@ -54,7 +50,14 @@ function deleteConfirm(board_num, accnt_id) {
 	</table>
 </div>
 <div>
-	<a href = "<c:url value='/board/list'/>">목록</a>
-	<a href = "<c:url value='/board/update?board_num=${vo.board_num }'/>">수정</a>
-	<a href = "javascript:deleteConfirm(${vo.board_num }, ${sessionScope.accnt_id })">삭제</a>
+	<a href = "<c:url value='/board/list?pageNum=${param.pageNum }'/>">목록</a>
+	<c:if test="${sessionScope.login.accnt_id == vo.accnt_id 
+				|| sessionScope.login.user_type == 'A'
+				|| sessionScope.login.user_type == 'E'}">
+		<a href = "<c:url value='/board/update?board_num=${vo.board_num }'/>">수정</a>
+	</c:if>
+	<c:if test="${sessionScope.login.accnt_id == vo.accnt_id 
+				|| sessionScope.login.user_type == 'A'}">
+		<a href = "javascript:deleteConfirm(${vo.board_num })">삭제</a>
+	</c:if>
 </div>
