@@ -54,6 +54,7 @@ function deleteConfirm(board_num, accnt_id) {
 	</table>
 </div>
 <div>
+	<a href = "<c:url value='/board/list'/>">목록</a>
 	<a href = "<c:url value='/board/update?board_num=${vo.board_num }'/>">수정</a>
 	<a href = "javascript:deleteConfirm(${vo.board_num }, ${sessionScope.accnt_id })">삭제</a>
 </div>

@@ -8,10 +8,18 @@
 		values(board_seq.nextval, #{accnt_id},
 		#{title}, #{content}, sysdate)
 	</insert>
-	<select id="list" resultType="com.emoney.hhkim.vo.BoardListVo">
-		select b.board_num, a.accnt_id, a.nickname, b.title, b.content, to_char(b.wdate, 'yyyy-mm-dd') wdate
-		from account a, board b
-		where a.accnt_id = b.accnt_id
+	<select id="list" parameterType="map" resultType="com.emoney.hhkim.vo.BoardListVo">
+		select * from
+		(
+			select aa.*, rownum rnum from
+			(
+				select b.board_num, a.accnt_id, a.nickname, b.title, b.content, to_char(b.wdate, 'yyyy-mm-dd') wdate
+				from account a, board b
+				where a.accnt_id = b.accnt_id
+			)aa
+			order by aa.board_num desc
+		)
+		<![CDATA[where rnum >= #{startRow} and rnum <= #{endRow}]]>
 	</select>
 	<select id="detail" resultType="com.emoney.hhkim.vo.BoardListVo" parameterType="int">
 	 	select b.board_num, a.accnt_id, a.nickname, b.title, b.content, to_char(b.wdate, 'yyyy-mm-dd') wdate
@@ -26,4 +34,7 @@
   <delete id="delete" parameterType="int">
   	delete from board where board_num = #{board_num}
   </delete>
+  <select id="cnt" resultType="int">
+  	select NVL(count(*), 0) from board
+  </select>
 </mapper>

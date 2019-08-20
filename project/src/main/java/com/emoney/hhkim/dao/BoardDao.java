@@ -18,8 +18,8 @@ public class BoardDao {
 	public int insert(BoardVo vo){
 		return sqlSession.insert(NAMESPACE + ".insert", vo);
 	}
-	public List<BoardListVo> list(){
-		return sqlSession.selectList(NAMESPACE + ".list");
+	public List<BoardListVo> list(HashMap<String, Object> map){
+		return sqlSession.selectList(NAMESPACE + ".list", map);
 	}
 	public BoardListVo detail(int board_num){
 		return sqlSession.selectOne(NAMESPACE + ".detail", board_num);
@@ -29,5 +29,8 @@ public class BoardDao {
 	}
 	public int delete(int board_num){
 		return sqlSession.delete(NAMESPACE + ".delete", board_num);
+	}
+	public int cnt(){
+		return sqlSession.selectOne(NAMESPACE + ".cnt");
 	}
 }

@@ -17,8 +17,8 @@ public class BoardService {
 	public int insert(BoardVo vo){
 		return boardDao.insert(vo);
 	}
-	public List<BoardListVo> list(){
-		return boardDao.list();
+	public List<BoardListVo> list(HashMap<String, Object> map){
+		return boardDao.list(map);
 	}
 	public BoardListVo detail(int board_num){
 		return boardDao.detail(board_num);
@@ -28,5 +28,8 @@ public class BoardService {
 	}
 	public int delete(int board_num){
 		return boardDao.delete(board_num);
+	}
+	public int cnt(){
+		return boardDao.cnt();
 	}
 }

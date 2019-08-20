@@ -9,7 +9,7 @@
 	<li><a href="<c:url value = '/account.hh'/>">회원목록</a></li>
 	<c:choose>
 		<c:when test="${empty sessionScope.login.id}">
-			<li><a href="<c:url value = '/joinForm'/>">회원가입</a></li>
+			<li><a href="<c:url value = '/join'/>">회원가입</a></li>
 			<li><a href="<c:url value = '/login'/>">로그인</a></li>
 		</c:when>
 		<c:otherwise>

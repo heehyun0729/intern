@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.emoney.hhkim.service.BoardService;
+import com.emoney.hhkim.util.PageUtil;
 import com.emoney.hhkim.vo.BoardListVo;
 import com.emoney.hhkim.vo.BoardVo;
 
@@ -21,9 +23,22 @@ public class BoardController {
 	private BoardService boardService;
 
 	@RequestMapping("/board/list")
-	public String list(Model model) {
-		List<BoardListVo> list = boardService.list();
+	public String list(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, Model model) {
+		int totalRowCnt = boardService.cnt();
+		PageUtil pu = new PageUtil(pageNum, 10, 5, totalRowCnt);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("pageNum", pageNum);
+		map.put("startRow", pu.getStartRow());
+		map.put("endRow", pu.getEndRow());
+		List<BoardListVo> list = boardService.list(map);
+		
+		map.put("startPageNum", pu.getStartPageNum());
+		map.put("endPageNum", pu.getEndPageNum());
+		map.put("totalPageCnt", pu.getTotalPageCnt());
+		
 		model.addAttribute("list", list);
+		model.addAttribute("pu", map);
 		return ".board.list";
 	}
 
@@ -37,7 +52,7 @@ public class BoardController {
 		BoardVo vo = new BoardVo(0, accnt_id, title, content, null);
 		int result = boardService.insert(vo);
 		if (result > 0) {
-			return ".board.list";
+			return "redirect:/board/list";
 		} else {
 			return ".error.error";
 		}

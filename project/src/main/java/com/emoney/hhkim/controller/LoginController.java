@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -34,7 +35,7 @@ public class LoginController {
 	
 	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = {Exception.class})
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(String id, String pwd, HttpSession session, HttpServletRequest request) throws Exception {
+	public String login(String id, String pwd, HttpSession session, HttpServletRequest request, Model model) throws Exception {
 		// 기존에 login 세션이 있는 경우
 		if (session.getAttribute("login") != null) {
 			session.removeAttribute("login");
@@ -76,8 +77,8 @@ public class LoginController {
 				url = "redirect:/";
 			} else { // 로그인 실패
 				msg = "아이디 또는 비밀번호가 일치하지 않습니다.";
-				session.setAttribute("msg", msg);
-				url = "redirect:/login";
+				model.addAttribute("msg", msg);
+				url = ".member.login";
 			}
 			return url;
 		} catch (NoSuchAlgorithmException e) {

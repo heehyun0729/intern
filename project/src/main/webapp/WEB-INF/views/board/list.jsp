@@ -21,3 +21,21 @@
 		</c:forEach>
 	</table>
 </div>
+<div>
+	<c:if test="${pu.startPageNum > 1 }">
+		<a href = "<c:url value = '/board/list?pageNum=${pu.startPageNum - 1 }'/>">[이전]</a>
+	</c:if>
+	<c:forEach var = "i" begin = "${pu.startPageNum }" end = "${pu.endPageNum }">
+		<c:choose>
+			<c:when test="${pu.pageNum == i }">
+				<a href = "<c:url value='/board/list?pageNum=${i }'/>"><span style = "color:pink;">[${i }]</span></a>
+			</c:when>
+			<c:otherwise>
+				<a href = "<c:url value='/board/list?pageNum=${i }'/>"><span>[${i }]</span></a>
+			</c:otherwise>
+		</c:choose>
+	</c:forEach>
+	<c:if test="${pu.endPageNum < pu.totalPageCnt }">
+		<a href = "<c:url value = '/board/list?pageNum=${pu.endPageNum + 1 }'/>">[다음]</a>
+	</c:if>
+</div>
