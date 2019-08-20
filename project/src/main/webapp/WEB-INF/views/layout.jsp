@@ -9,6 +9,7 @@
 <title>인턴 실습 과제 (김희현)</title>
 
 <script type="text/javascript" src = "/resources/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/resources/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 
 <link rel = "stylesheet" type = "text/css" href = "/resources/css/common.css">
 </head>
