@@ -42,7 +42,7 @@ public class LoginController {
 	public String loginForm(HttpSession session, Model model) throws UnsupportedEncodingException {
 		// 네이버 로그인
 		String clientId = "Jze21sO3oqNPdg7pO21n";//애플리케이션 클라이언트 아이디값";
-	   String redirectURI = URLEncoder.encode("http://localhost:8080/naverLoginOk", "UTF-8");
+	   String redirectURI = URLEncoder.encode("http://52.78.90.60/naverLoginOk", "UTF-8");
 	   SecureRandom random = new SecureRandom();
 	   String state = new BigInteger(130, random).toString();
 	   String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
@@ -126,7 +126,7 @@ public class LoginController {
 		    String clientSecret = "E4Ra1PQPhv";//애플리케이션 클라이언트 시크릿값";
 		    String code = request.getParameter("code");
 		    String state = request.getParameter("state");
-		    String redirectURI = URLEncoder.encode("http://localhost:8080/naverLoginOk", "UTF-8");
+		    String redirectURI = URLEncoder.encode("http://52.78.90.60/naverLoginOk", "UTF-8");
 		    String apiURL;
 		    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
 		    apiURL += "client_id=" + clientId;

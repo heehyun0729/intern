@@ -118,7 +118,10 @@ public class BoardController {
 		StringBuffer sb = new StringBuffer();
 		try{
 			String orgName = request.getHeader("file-name");
-			String path = "C:/Users/eMoney/git/intern/project/src/main/webapp/resources/upload/";
+			// 리눅스 파일경로
+	        String path = "/usr/local/tomcat/webapps/resources/upload";
+//	        // 윈도우 파일경로
+//			String path = "C:/Users/eMoney/git/intern/project/src/main/webapp/resources/upload/";
 			String saveName = sb.append(new SimpleDateFormat("yyyyMMddHHmmss")
 						.format(System.currentTimeMillis()))
 						.append("_" + UUID.randomUUID().toString())
@@ -134,7 +137,10 @@ public class BoardController {
 			os.close();
 			sb.append("&bNewLine=true")
             .append("&sFileName=").append(orgName)
-            .append("&sFileURL=").append("http://localhost:8080/resources/upload/")
+            // 리눅스 경로
+            .append("&sFileURL=").append("http://52.78.90.60/resources/upload")
+//          // 윈도우 경로
+//          .append("&sFileURL=").append("http://localhost:8080/resources/upload/")
             .append(saveName);
 		}catch(Exception e){
 			e.printStackTrace();
