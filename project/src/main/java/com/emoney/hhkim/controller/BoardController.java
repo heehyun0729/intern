@@ -1,8 +1,6 @@
 package com.emoney.hhkim.controller;
 
-import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
@@ -16,7 +14,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +23,6 @@ import com.emoney.hhkim.service.BoardService;
 import com.emoney.hhkim.util.PageUtil;
 import com.emoney.hhkim.vo.BoardListVo;
 import com.emoney.hhkim.vo.BoardVo;
-import com.emoney.hhkim.vo.PhotoVo;
 
 @Controller
 public class BoardController {
@@ -140,7 +136,7 @@ public class BoardController {
 //            // 리눅스 경로
 //            .append("&sFileURL=").append("http://52.78.90.60/resources/upload")
           // 윈도우 경로
-          .append("&sFileURL=").append("http://localhost:8080/resources/upload/")
+          .append("&sFileURL=").append("https://localhost/resources/upload/")
             .append(saveName);
 		}catch(Exception e){
 			e.printStackTrace();
