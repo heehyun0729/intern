@@ -115,10 +115,8 @@ public class BoardController {
 	@RequestMapping(value = "/board/photoUpload", method = RequestMethod.POST)
 	@ResponseBody
 	public String photoUpload(HttpServletRequest request){
-		// 파일 정보
 		StringBuffer sb = new StringBuffer();
 		try{
-			// 원본파일명
 			String orgName = request.getHeader("file-name");
 			String path = "C:/Users/eMoney/git/intern/project/src/main/webapp/resources/upload/";
 			String saveName = sb.append(new SimpleDateFormat("yyyyMMddHHmmss")

@@ -1,11 +1,21 @@
 package com.emoney.hhkim.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +39,19 @@ public class LoginController {
 
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginForm() {
+	public String loginForm(HttpSession session, Model model) throws UnsupportedEncodingException {
+		// 네이버 로그인
+		String clientId = "Jze21sO3oqNPdg7pO21n";//애플리케이션 클라이언트 아이디값";
+	   String redirectURI = URLEncoder.encode("http://localhost:8080/naverLoginOk", "UTF-8");
+	   SecureRandom random = new SecureRandom();
+	   String state = new BigInteger(130, random).toString();
+	   String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+	   apiURL += "&client_id=" + clientId;
+	   apiURL += "&redirect_uri=" + redirectURI;
+	   apiURL += "&state=" + state;
+	   session.setAttribute("state", state);
+	   model.addAttribute("apiURL", apiURL);
+		
 		return ".member.login";
 	}
 	
@@ -54,10 +76,11 @@ public class LoginController {
 			String msg = "";
 			if (vo != null) { // 로그인 성공
 				int accnt_id = vo.getAccnt_id();
+				String nickname = vo.getNickname();
 				// 마지막 로그인
 				int result1 = accountService.updateLastLogin(accnt_id);
 				if(result1 <= 0){
-					LOG.error("ACCOUNT update 실패 / accnt_id: " + accnt_id);
+					LOG.error("ACCOUNT update 실패 / accnt_id: " + accnt_id + ", nickname: " + nickname);
 					throw new Exception();
 				}
 				// login history
@@ -69,10 +92,10 @@ public class LoginController {
 	                    ip, browser, os);
 				int result2 = accountService.insertLoginHistory(lvo);
 				if(result2 <= 0){
-					LOG.error("LOGIN_HIS insert 실패 / accnt_id: " + accnt_id);
+					LOG.error("LOGIN_HIS insert 실패 / accnt_id: " + accnt_id + ", nickname: " + nickname);
 					throw new Exception();
 				}			
-				LOG.info("로그인: " + accnt_id);
+				LOG.info("로그인: " + accnt_id + "(" + nickname + ")");
 				session.setAttribute("login", vo);
 				url = "redirect:/";
 			} else { // 로그인 실패
@@ -91,8 +114,96 @@ public class LoginController {
 	public String logout(HttpSession session){
 		AccountVo vo = (AccountVo) session.getAttribute("login");
 		int accnt_id = vo.getAccnt_id();
-		LOG.info("로그아웃: " + accnt_id);
+		String nickname = vo.getNickname();
+		LOG.info("로그아웃: " + accnt_id + "(" + nickname + ")");
 		session.invalidate();
 		return "redirect:/";
+	}
+	
+	@RequestMapping("/naverLoginOk")
+	public String naverLoginOk(HttpServletRequest request, HttpSession session) throws UnsupportedEncodingException{
+		 String clientId = "Jze21sO3oqNPdg7pO21n";//애플리케이션 클라이언트 아이디값";
+		    String clientSecret = "E4Ra1PQPhv";//애플리케이션 클라이언트 시크릿값";
+		    String code = request.getParameter("code");
+		    String state = request.getParameter("state");
+		    String redirectURI = URLEncoder.encode("http://localhost:8080/naverLoginOk", "UTF-8");
+		    String apiURL;
+		    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
+		    apiURL += "client_id=" + clientId;
+		    apiURL += "&client_secret=" + clientSecret;
+		    apiURL += "&redirect_uri=" + redirectURI;
+		    apiURL += "&code=" + code;
+		    apiURL += "&state=" + state;
+		    try {
+		      URL url = new URL(apiURL);
+		      HttpURLConnection con = (HttpURLConnection)url.openConnection();
+		      con.setRequestMethod("GET");
+		      int responseCode = con.getResponseCode();
+		      BufferedReader br;
+		      if(responseCode==200) { // 정상 호출
+		        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		      } else {  // 에러 발생
+		        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+		      }
+		      String inputLine;
+		      StringBuffer res = new StringBuffer();
+		      while ((inputLine = br.readLine()) != null) {
+		        res.append(inputLine);
+		      }
+		      br.close();
+		      if(responseCode==200) {
+		    	  JSONObject json  = new JSONObject(res.toString());
+		    	  String token = json.get("access_token").toString();
+		    	  session.setAttribute("token", token);
+		      }
+		    } catch (Exception e) {
+		      System.out.println(e);
+		    }
+		return "redirect:/naverLoginInfo";
+	}
+	
+	@RequestMapping(value = "/naverLoginInfo")
+	public String personalInfo(HttpServletRequest request, HttpSession session) throws Exception {
+	        String token = (String)session.getAttribute("token");
+	        String header = "Bearer " + token;
+	        try {
+	            String apiURL = "https://openapi.naver.com/v1/nid/me";
+	            URL url = new URL(apiURL);
+	            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+	            con.setRequestMethod("GET");
+	            con.setRequestProperty("Authorization", header);
+	            int responseCode = con.getResponseCode();
+	            BufferedReader br;
+	            if(responseCode==200) { // 정상 호출
+	                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	            } else {  // 에러 발생
+	                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+	            }
+	            String inputLine;
+	            StringBuffer res = new StringBuffer();
+	            while ((inputLine = br.readLine()) != null) {
+	                res.append(inputLine);
+	            }
+	            br.close();
+		    	JSONObject json  = new JSONObject(res.toString());
+		    	JSONObject response = json.getJSONObject("response");
+		    	String id = response.getString("id");
+		    	String[] elements = JSONObject.getNames(response);
+		    	String nickname = "naver_" + id;
+		    	String name = id;
+		    	for(String element : elements){
+		    		if(element.equals("nickname")){
+		    			nickname = response.getString("nickname");
+		    		}
+		    		if(element.equals("name")){
+		    			name = response.getString("name");
+		    		}
+		    	}
+		    	AccountVo vo = new AccountVo(-1, nickname, name, "", "", id, "", "");
+		    	session.setAttribute("login", vo);
+	        } catch (Exception e) {
+	            System.out.println(e);
+	        }
+	       return "redirect:/";
 	}
 }

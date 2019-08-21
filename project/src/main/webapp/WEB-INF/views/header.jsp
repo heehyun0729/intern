@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<div>
+	<c:if test="${!empty sessionScope.login.nickname}">
+		<span>${sessionScope.login.nickname}님 환영합니다.</span>
+	</c:if>
+</div>
 <ul>
 	<li><a href="<c:url value = '/'/>">메인</a></li>
 	<li><a href="<c:url value='/board/list'/>">게시판</a></li>
