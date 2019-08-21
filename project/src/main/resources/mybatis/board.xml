@@ -16,8 +16,8 @@
 				select b.board_num, a.accnt_id, a.nickname, b.title, b.content, to_char(b.wdate, 'yyyy-mm-dd') wdate
 				from account a, board b
 				where a.accnt_id = b.accnt_id
+				order by b.board_num desc
 			)aa
-			order by aa.board_num desc
 		)
 		<![CDATA[where rnum >= #{startRow} and rnum <= #{endRow}]]>
 	</select>
