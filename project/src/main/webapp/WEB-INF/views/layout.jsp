@@ -8,19 +8,29 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>인턴 실습 과제 (김희현)</title>
 
-<script type="text/javascript" src = "/resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="/resources/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 
+<link rel = "stylesheet" type = "text/css" href = "/resources/css/bootstrap.min.css">
 <link rel = "stylesheet" type = "text/css" href = "/resources/css/common.css">
+<link rel = "stylesheet" type = "text/css" href = "/resources/css/style.css">
 </head>
 <body>
-<div id = "wrap">
+<div id = "wrap" >
 	<div id = "header">
 		<tiles:insertAttribute name = "header"/>
 	</div>
 	<div id = "content">
 		<tiles:insertAttribute name = "content"/>
 	</div>
+	<div id = "footer">
+		<tiles:insertAttribute name = "footer"/>
+	</div>
 </div>
+
+<script type="text/javascript" src = "/resources/js/jquery.min.js"></script>
+<script type="text/javascript" src = "/resources/js/popper.min.js"></script>
+<script type="text/javascript" src = "/resources/js/bootstrap.min.js"></script>
+<script type="text/javascript" src = "/resources/js/hami.bundle.js"></script>
+<script type="text/javascript" src = "/resources/js/default-assets/active.js"></script>
 </body>
 </html>

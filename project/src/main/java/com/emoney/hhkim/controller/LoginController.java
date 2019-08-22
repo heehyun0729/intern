@@ -40,19 +40,23 @@ public class LoginController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginForm(HttpSession session, Model model) throws UnsupportedEncodingException {
-		// 네이버 로그인
-		String clientId = "Jze21sO3oqNPdg7pO21n";//애플리케이션 클라이언트 아이디값";
-	   String redirectURI = URLEncoder.encode("https://hh.x1.co.kr/naverLoginOk", "UTF-8");
-	   SecureRandom random = new SecureRandom();
-	   String state = new BigInteger(130, random).toString();
-	   String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-	   apiURL += "&client_id=" + clientId;
-	   apiURL += "&redirect_uri=" + redirectURI;
-	   apiURL += "&state=" + state;
-	   session.setAttribute("state", state);
-	   model.addAttribute("apiURL", apiURL);
-		
-		return ".member.login";
+		if(session.getAttribute("login") != null){
+			return ".error.404";
+		}else{
+			// 네이버 로그인
+			String clientId = "Jze21sO3oqNPdg7pO21n";//애플리케이션 클라이언트 아이디값";
+		   String redirectURI = URLEncoder.encode("https://hh.x1.co.kr/naverLoginOk", "UTF-8");
+		   SecureRandom random = new SecureRandom();
+		   String state = new BigInteger(130, random).toString();
+		   String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+		   apiURL += "&client_id=" + clientId;
+		   apiURL += "&redirect_uri=" + redirectURI;
+		   apiURL += "&state=" + state;
+		   session.setAttribute("state", state);
+		   model.addAttribute("apiURL", apiURL);
+			
+			return ".member.login";
+		}
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = {Exception.class})
@@ -98,7 +102,11 @@ public class LoginController {
 				LOG.info("로그인: " + accnt_id + "(" + nickname + ")");
 				session.setAttribute("login", vo);
 				String referer = (String)session.getAttribute("referer");
-				url = "redirect:" + referer;
+				if(referer == null || referer.equals("")){
+					url = "redirect:/";
+				}else{
+					url = "redirect:" + referer;
+				}
 			} else { // 로그인 실패
 				msg = "아이디 또는 비밀번호가 일치하지 않습니다.";
 				model.addAttribute("msg", msg);
@@ -205,6 +213,6 @@ public class LoginController {
 	        } catch (Exception e) {
 	            System.out.println(e);
 	        }
-	       return "redirect:/";
+			return "redirect:/";
 	}
 }
