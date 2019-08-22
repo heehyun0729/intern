@@ -15,6 +15,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		
 		// 로그인되어 있지 않은 경우
 		if(obj == null){
+			// 요청했던 페이지로 돌아가기 위한 referer 구하기
+			String referer = request.getHeader("referer");
+			session.setAttribute("referer", referer);
 			response.sendRedirect("/login");
 			return false;
 		}

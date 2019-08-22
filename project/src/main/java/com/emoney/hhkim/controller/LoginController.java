@@ -97,7 +97,8 @@ public class LoginController {
 				}			
 				LOG.info("로그인: " + accnt_id + "(" + nickname + ")");
 				session.setAttribute("login", vo);
-				url = "redirect:/";
+				String referer = (String)session.getAttribute("referer");
+				url = "redirect:" + referer;
 			} else { // 로그인 실패
 				msg = "아이디 또는 비밀번호가 일치하지 않습니다.";
 				model.addAttribute("msg", msg);
