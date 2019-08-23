@@ -32,7 +32,7 @@ public class BoardController {
 	@RequestMapping("/board/list")
 	public String list(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, Model model) {
 		int totalRowCnt = boardService.cnt();
-		PageUtil pu = new PageUtil(pageNum, 10, 5, totalRowCnt);
+		PageUtil pu = new PageUtil(pageNum, 5, 5, totalRowCnt);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("pageNum", pageNum);

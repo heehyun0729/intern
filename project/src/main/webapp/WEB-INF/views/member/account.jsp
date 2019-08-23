@@ -29,21 +29,21 @@
 					<div class="wrap-table100">
 						<div class="table">
 						   <div class="rows header">
-								<div class="cell">회원번호</div>
-								<div class="cell">닉네임</div>
-								<div class="cell">성명</div>
-								<div class="cell">회원유형</div>
-								<div class="cell">전화번호</div>
-								<div class="cell">아이디</div>
-								<div class="cell">비밀번호</div>
-								<div class="cell">마지막 로그인</div>
+								<div class="cell acc">회원번호</div>
+								<div class="cell acc">닉네임</div>
+								<div class="cell acc">성명</div>
+								<div class="cell acc">회원유형</div>
+								<div class="cell acc">전화번호</div>
+								<div class="cell acc">아이디</div>
+								<div class="cell acc">비밀번호</div>
+								<div class="cell acc">마지막 로그인</div>
 							</div>
 							<c:forEach var="vo" items="${list }">
 								<div class="rows">
-									<div class="cell">${vo.accnt_id }</div>
-									<div class="cell">${vo.nickname }</div>
-									<div class="cell">${vo.name }</div>
-									<div class="cell">
+									<div class="cell acc">${vo.accnt_id }</div>
+									<div class="cell acc">${vo.nickname }</div>
+									<div class="cell acc">${vo.name }</div>
+									<div class="cell acc">
 										<c:choose>
 											<c:when test="${vo.user_type == 'E' }">
 												전문가
@@ -56,10 +56,10 @@
 											</c:otherwise>
 										</c:choose>
 									</div>
-									<div class="cell">${vo.phone }</div>
-									<div class="cell">${vo.id }</div>
-									<div class="cell">${vo.s_passwd }</div>
-									<div class="cell">${vo.last_login }</div>
+									<div class="cell acc">${vo.phone }</div>
+									<div class="cell acc">${vo.id }</div>
+									<div class="cell acc">${vo.s_passwd }</div>
+									<div class="cell acc">${vo.last_login }</div>
 								</div>
 							</c:forEach>
 						</div>
