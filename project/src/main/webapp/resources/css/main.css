@@ -106,6 +106,7 @@
 
   padding: 20px 0;
   border-bottom: 1px solid #f2f2f2;
+  text-align: center;
 }
 
 .rows.header .cell {
@@ -121,7 +122,6 @@
 
 .row .list:nth-child(1) {
   width: 160px;
-  padding-left: 40px;
 }
 
 .row .list:nth-child(2) {
@@ -138,16 +138,15 @@
 
 
 .row .acc:nth-child(1) {
-  width: 195px;
-  padding-left: 40px;
+  width: 180px;
 }
 
 .row .acc:nth-child(2) {
-  width: 130px;
+  width: 155px;
 }
 
 .row .acc:nth-child(3) {
-  width: 130px;
+  width: 140px;
 }
 
 .row .acc:nth-child(4) {
@@ -155,11 +154,11 @@
 }
 
 .row .acc:nth-child(5) {
-  width: 260px;
+  width: 240px;
 }
 
 .row .acc:nth-child(6) {
-  width: 130px;
+  width: 150px;
 }
 
 .row .acc:nth-child(7) {
@@ -167,7 +166,7 @@
 }
 
 .row .acc:nth-child(8) {
-  width: 260px;
+  width: 240px;
 }
 
 

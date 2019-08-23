@@ -22,42 +22,66 @@ function deleteConfirm(board_num, accnt_id) {
 	}
 }
 </script>
-
-<h1>상세보기</h1>
-<div>
-	<table border = "1">
-		<tr>
-			<th>글번호</th>
-			<td>${vo.board_num }</td>
-			<th>작성일</th>
-			<td>${vo.wdate }</td>
-		</tr>
-		<tr>
-			<th colspan="2">작성자</th>
-			<td colspan="2">${vo.nickname }</td>
-		</tr>
-		<tr>
-			<th colspan="2">제목</th>
-			<td colspan="2">${vo.title }</td>
-		</tr>
-		<tr>
-			<td colspan="4">
-				<div>
-					${vo.content }
+<!-- Breadcrumb Area Start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-content">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="<c:url value='/'/>"><i class="fa fa-home" aria-hidden="true"></i> 메인</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">게시판</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End -->
+<!-- Blog Details Area Start -->
+<section class="hami-blog-details-area section-padding-80-0">
+    <div class="container">
+    <div class = "row d-flex justify-content-end mb-50">
+		<a href = "<c:url value='/board/write'/>" class = "btn hami-btn btn-3 mt-15" style = "margin-right: 45px;">글쓰기</a>
+	</div>
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10">
+                <div class="post-content">
+                    <div class="post-meta">
+                        <a href="#" class="post-date">글번호: ${vo.board_num }<span style = "color:#ccc;"> | </span>작성일: ${vo.wdate }</a>
+                    </div>
+                    <h2 class="post-title">${vo.title }</h2>
+                    <h3 class="post-title mt-15" style = "font-size: 24px;"><i class="fa fa-user-circle-o" aria-hidden="true"></i> ${vo.nickname }</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10">
+                <div class="blog-details-text mb-50">
+                <hr class = "mb-50">
+                	${vo.content }
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10 d-flex justify-content-between">
+            	<div>
+                	<a href = "<c:url value='/board/list?pageNum=${param.pageNum }'/>" class = "btn hami-btn btn-2 mt-15">목록</a>
+                </div>
+                <div>
+				<c:if test="${sessionScope.login.accnt_id == vo.accnt_id 
+							|| sessionScope.login.user_type == 'A'
+							|| sessionScope.login.user_type == 'E'}">
+					<a href = "<c:url value='/board/update?board_num=${vo.board_num }'/>" class = "btn hami-btn btn-3 mt-15">수정</a>
+				</c:if>
+				<c:if test="${sessionScope.login.accnt_id == vo.accnt_id 
+							|| sessionScope.login.user_type == 'A'}">
+					<a href = "javascript:deleteConfirm(${vo.board_num })" class = "btn hami-btn btn-3 mt-15" style = "margin-left: 20px;">삭제</a>
+				</c:if>
 				</div>
-			</td>
-		</tr>
-	</table>
-</div>
-<div>
-	<a href = "<c:url value='/board/list?pageNum=${param.pageNum }'/>">목록</a>
-	<c:if test="${sessionScope.login.accnt_id == vo.accnt_id 
-				|| sessionScope.login.user_type == 'A'
-				|| sessionScope.login.user_type == 'E'}">
-		<a href = "<c:url value='/board/update?board_num=${vo.board_num }'/>">수정</a>
-	</c:if>
-	<c:if test="${sessionScope.login.accnt_id == vo.accnt_id 
-				|| sessionScope.login.user_type == 'A'}">
-		<a href = "javascript:deleteConfirm(${vo.board_num })">삭제</a>
-	</c:if>
-</div>
+            </div>
+        </div>
+    </div>
+</section>

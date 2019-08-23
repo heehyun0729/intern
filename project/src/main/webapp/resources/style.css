@@ -380,6 +380,7 @@ input:focus {
   height: 40px;
   bottom: 40px;
   background-color: #6c7ae0;
+  padding-top: 8px;
   color: #ffffff;
   text-align: center;
   -webkit-transition-duration: 500ms;
@@ -428,7 +429,8 @@ input:focus {
     color: #6c7ae0; }
   .hami-btn.btn-2 {
     background-color: #ffffff;
-    color: #6c7ae0; }
+    color: #6c7ae0; 
+    border : 1px solid #c4d3f6;}
     .hami-btn.btn-2:focus, .hami-btn.btn-2:hover {
       color: #ffffff;
       background-color: #6c7ae0; }
@@ -2559,7 +2561,6 @@ input:focus {
   z-index: 1; }
   .single-related-news .post-date {
     font-size: 12px;
-    text-transform: uppercase;
     letter-spacing: 2px;
     color: #6c7ae0;
     display: block;

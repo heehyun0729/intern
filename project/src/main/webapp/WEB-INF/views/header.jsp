@@ -12,8 +12,8 @@
                 </div>
             </div>
 
-            <div class="col col-3">
-                <div class="top-header-content">
+            <div class="col col-3 ">
+                <div class="top-header-content d-flex justify-content-around">
                     <!-- Login -->
                      <c:choose>
 						<c:when test="${empty sessionScope.login.id}">
@@ -21,8 +21,7 @@
 							<a href="<c:url value = '/join'/>">회원가입</a>
 						</c:when>
 						<c:otherwise>
-							<i class="fa fa-heart" aria-hidden="true"></i> 
-							<b>${sessionScope.login.nickname}</b> / 
+							<div><i class="fa fa-heart" aria-hidden="true"></i> ${sessionScope.login.nickname}</div>
 							<a href="<c:url value = '/logout'/>">로그아웃</a>
 						</c:otherwise>
 					</c:choose>
@@ -41,7 +40,7 @@
             <nav class="classy-navbar justify-content-between" id="hamiNav">
 
                 <!-- Logo -->
-                <h1><a class="nav-brand" href="<c:url value = '/'/>"  style = "color:white;">hhkim</a></h1>
+                <h1><a class="nav-brand" href="<c:url value = '/'/>"  style = "color:white;">김희현 인턴 실습</a></h1>
 
                 <!-- Navbar Toggler -->
                 <div class="classy-navbar-toggler">

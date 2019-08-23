@@ -40,8 +40,13 @@
 		            </div>
 			        <!-- 버튼 -->
 		            <div class = "d-flex justify-content-center">
-			            <div class="col-12 col-lg-6">
+			            <div class="col-12 col-lg-6 mb-30">
 			            	<input type = "submit" class="btn hami-btn btn-3 mt-15 w-100" value = "로그인">
+			            </div>
+		            </div>
+		            <div class = "d-flex justify-content-center">
+			            <div class="col-12 col-sm-6">
+			            	<a href="${apiURL }"><img style = "height: 50px;" src="<c:url value='/resources/img/naverLogin.png'/>"/></a>
 			            </div>
 		            </div>
 			    </form>

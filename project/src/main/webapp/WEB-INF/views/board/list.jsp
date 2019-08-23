@@ -22,9 +22,11 @@
 <section class="hami-blog-details-area section-padding-80-0">
        <div class="container">
            <div class="row justify-content-center">
-
 			<div class="hami-contact-form mb-30">
-				<h2>게시판</h2>
+				<div class = "row d-flex justify-content-between">
+					<h2 class = "mt-15" style = "padding-left: 45px;">게시판</h2>
+					<a href = "<c:url value='/board/write'/>" class = "btn hami-btn btn-3 mt-15" style = "margin-right: 45px;">글쓰기</a>
+				</div>
 				<div class="container-table100">
 					<div class="wrap-table100">
 						<div class="table">
