@@ -35,6 +35,9 @@ Last Update: Jan 31, 2019
     21.0 Testimonial Area CSS
     22.0 Widget Area CSS
     23.0 Contact Area CSS
+    
+color: #6c7ae0 #c4d3f6 #e8f1f8 
+font color: #303030
 --------------------------------------------- */
 /* Import Fonts & All CSS */
 @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Noto+Sans+KR:400,500,700&display=swap&subset=korean");
@@ -2533,8 +2536,7 @@ input:focus {
     border-bottom-left-radius: 0; }
   .pagination .page-link {
     padding: 12px 15px;
-    color: #303030;
-    border: 1px solid #ebebeb; }
+    color: #303030; }
     .pagination .page-link:hover, .pagination .page-link:focus {
       background-color: #6c7ae0;
       color: #ffffff;

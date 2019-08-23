@@ -1,36 +1,94 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-	<h1>회원목록</h1>
-	<table border="1">
-		<tr>
-			<th>회원번호</th>
-			<th>닉네임</th>
-			<th>성명</th>
-			<th>회원유형</th>
-			<th>전화번호</th>
-			<th>아이디</th>
-			<th>비밀번호</th>
-		</tr>
-		<c:forEach var="vo" items="${list }">
-			<tr>
-				<td>${vo.accnt_id }</td>
-				<td>${vo.nickname }</td>
-				<td>${vo.name }</td>
-				<td><c:choose>
-						<c:when test="${vo.user_type == 'E' }">
-							전문가
-						</c:when>
-						<c:when test="${vo.user_type == 'A' }">
-							운영자
-						</c:when>
-						<c:otherwise>
-							일반회원
-						</c:otherwise>
-					</c:choose></td>
-				<td>${vo.phone }</td>
-				<td>${vo.id }</td>
-				<td>${vo.s_passwd }</td>
-			</tr>
-		</c:forEach>
-	</table>
+<!-- Breadcrumb Area Start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-content">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="<c:url value='/'/>"><i class="fa fa-home" aria-hidden="true"></i> 메인</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">회원목록</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End -->
+<section class="hami-blog-details-area section-padding-80-0">
+       <div class="container">
+           <div class="row justify-content-center">
+
+			<div class="hami-contact-form mb-30">
+				<h2>회원목록</h2>
+				<div class="container-table100">
+					<div class="wrap-table100">
+						<div class="table">
+						   <div class="rows header">
+								<div class="cell">회원번호</div>
+								<div class="cell">닉네임</div>
+								<div class="cell">성명</div>
+								<div class="cell">회원유형</div>
+								<div class="cell">전화번호</div>
+								<div class="cell">아이디</div>
+								<div class="cell">비밀번호</div>
+								<div class="cell">마지막 로그인</div>
+							</div>
+							<c:forEach var="vo" items="${list }">
+								<div class="rows">
+									<div class="cell">${vo.accnt_id }</div>
+									<div class="cell">${vo.nickname }</div>
+									<div class="cell">${vo.name }</div>
+									<div class="cell">
+										<c:choose>
+											<c:when test="${vo.user_type == 'E' }">
+												전문가
+											</c:when>
+											<c:when test="${vo.user_type == 'A' }">
+												운영자
+											</c:when>
+											<c:otherwise>
+												일반회원
+											</c:otherwise>
+										</c:choose>
+									</div>
+									<div class="cell">${vo.phone }</div>
+									<div class="cell">${vo.id }</div>
+									<div class="cell">${vo.s_passwd }</div>
+									<div class="cell">${vo.last_login }</div>
+								</div>
+							</c:forEach>
+						</div>
+					</div>
+				</div>
+				<!-- Pagination -->
+                <nav class="hami-pagination mb-50">
+                    <ul class="pagination d-flex justify-content-center">
+                    	<c:if test="${pu.startPageNum > 1 }">
+							 <li class="page-item"><a href = "<c:url value = '/account.hh?pageNum=${pu.startPageNum - 1 }'/>" class="page-link">&lt;</a></li>
+						</c:if>
+						<c:forEach var = "i" begin = "${pu.startPageNum }" end = "${pu.endPageNum }">
+							<c:choose>
+								<c:when test="${pu.pageNum == i }">
+									 <li class="page-item"><a href = "<c:url value='/account.hh?pageNum=${i }'/>" class="page-link">${i }</a></li>
+								</c:when>
+								<c:otherwise>
+									 <li class="page-item"><a href = "<c:url value='/account.hh?pageNum=${i }'/>" class="page-link">${i }</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${pu.endPageNum < pu.totalPageCnt }">
+							 <li class="page-item"><a href = "<c:url value = '/account.hh?pageNum=${pu.endPageNum + 1 }'/>" class="page-link">&gt;</a></li>
+						</c:if>
+                    </ul>
+                </nav>
+			</div>
+		</div>
+	</div>
+</section>
+			
+			

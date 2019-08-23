@@ -15,8 +15,8 @@ public class AccountDao {
 	@Autowired private SqlSession sqlSession;
 	private final String NAMESPACE = "com.emoney.hhkim.mybatis.AccountMapper";
 	
-	public List<AccountVo> list(){
-		return sqlSession.selectList(NAMESPACE + ".list");
+	public List<AccountVo> list(HashMap<String, Object> map){
+		return sqlSession.selectList(NAMESPACE + ".list", map);
 	}
 	public int insert(AccountVo vo){
 		return sqlSession.insert(NAMESPACE + ".insert", vo);
@@ -35,5 +35,8 @@ public class AccountDao {
 	}
 	public int insertLoginHistory(LoginHistoryVo vo){
 		return sqlSession.insert(NAMESPACE + ".insertLoginHistory", vo);
+	}
+	public int cnt(){
+		return sqlSession.selectOne(NAMESPACE + ".cnt");
 	}
 }

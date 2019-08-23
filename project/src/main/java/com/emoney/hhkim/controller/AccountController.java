@@ -10,19 +10,39 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.emoney.hhkim.service.AccountService;
+import com.emoney.hhkim.util.PageUtil;
 import com.emoney.hhkim.util.SecurityUtil;
 import com.emoney.hhkim.vo.AccountVo;
 
 @Controller
 public class AccountController {
-	@Autowired AccountService service;
+	@Autowired AccountService accountService;
 	
 	@RequestMapping("/account.hh")
-	public String list(Model model){
-		List<AccountVo> list = service.list();
+	public String list(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, Model model){
+		int totalRowCnt = accountService.cnt();
+		PageUtil pu = new PageUtil(pageNum, 5, 5, totalRowCnt);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("pageNum", pageNum);
+		map.put("startRow", pu.getStartRow());
+		map.put("endRow", pu.getEndRow());
+		List<AccountVo> list = accountService.list(map);
+		for(AccountVo vo : list){
+			String pwd = vo.getS_passwd();
+			pwd = pwd.substring(0, 3) + "***";
+			vo.setS_passwd(pwd);
+		}
+		
+		map.put("startPageNum", pu.getStartPageNum());
+		map.put("endPageNum", pu.getEndPageNum());
+		map.put("totalPageCnt", pu.getTotalPageCnt());
+		
+		model.addAttribute("pu", map);
 		model.addAttribute("list", list);
 		
 		return ".member.account";
@@ -40,7 +60,7 @@ public class AccountController {
 		String s_passwd = SecurityUtil.bytesToHex(SecurityUtil.sha256(pwd));
 		
 		AccountVo vo = new AccountVo(0, nickname, name, "", phone, id, s_passwd, null);
-		int result = service.insert(vo);
+		int result = accountService.insert(vo);
 		if(result > 0){
 			return ".member.joinOk";
 		}else{
@@ -51,7 +71,7 @@ public class AccountController {
 	@RequestMapping("/idCheck")
 	@ResponseBody
 	public String idCheck(String id){
-		AccountVo vo = service.idChk(id);
+		AccountVo vo = accountService.idChk(id);
 		JSONObject json = new JSONObject();
 		if(vo != null){
 			json.put("find", true);
@@ -64,7 +84,7 @@ public class AccountController {
 	@RequestMapping("/nickCheck")
 	@ResponseBody
 	public String nickCheck(String nickname){
-		AccountVo vo = service.nickChk(nickname);
+		AccountVo vo = accountService.nickChk(nickname);
 		JSONObject json = new JSONObject();
 		if(vo != null){
 			json.put("find", true);

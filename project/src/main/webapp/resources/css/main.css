@@ -4,15 +4,8 @@
 [ FONT ]*/
 
 
-@font-face {
-  font-family: Poppins-Regular;
-  src: url('../fonts/poppins/Poppins-Regular.ttf'); 
-}
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Noto+Sans+KR:400,500,700&display=swap&subset=korean");
 
-@font-face {
-  font-family: Poppins-Bold;
-  src: url('../fonts/poppins/Poppins-Bold.ttf'); 
-}
 /*//////////////////////////////////////////////////////////////////
 [ Table ]*/
 
@@ -23,8 +16,6 @@
 
 .container-table100 {
   width: 100%;
-  min-height: 100vh;
-  background: #c4d3f6;
 
   display: -webkit-box;
   display: -webkit-flex;
@@ -38,9 +29,10 @@
 }
 
 .wrap-table100 {
-  width: 960px;
+  width: 100%;
   border-radius: 10px;
   overflow: hidden;
+  border: 1px solid #c4d3f6;
 }
 
 .table {
@@ -77,10 +69,11 @@
 
   .rows.header .cell {
     display: none;
+    text-align: center;
   }
 
   .rows .cell:before {
-    font-family: Poppins-Bold;
+    font-family:"Poppins", "Noto+Sans+KR", sans-serif;
     font-size: 12px;
     color: #808080;
     line-height: 1.2;
@@ -105,19 +98,18 @@
 }
 
 .rows .cell {
-  font-family: Poppins-Regular;
+  font-family: "Poppins", "Noto+Sans+KR", sans-serif;
   font-size: 15px;
   color: #666666;
   line-height: 1.2;
   font-weight: unset !important;
 
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 20px;
   border-bottom: 1px solid #f2f2f2;
 }
 
 .rows.header .cell {
-  font-family: Poppins-Regular;
+  font-family:"Poppins", "Noto+Sans+KR", sans-serif;
   font-size: 18px;
   color: #fff;
   line-height: 1.2;
@@ -127,22 +119,6 @@
   padding-bottom: 19px;
 }
 
-.rows .cell:nth-child(1) {
-  width: 360px;
-  padding-left: 40px;
-}
-
-.rows .cell:nth-child(2) {
-  width: 160px;
-}
-
-.rows .cell:nth-child(3) {
-  width: 250px;
-}
-
-.rows .cell:nth-child(4) {
-  width: 190px;
-}
 
 
 .table, .rows {
@@ -151,7 +127,6 @@
 
 .rows:hover {
   background-color: #ececff;
-  cursor: pointer;
 }
 
 @media (max-width: 768px) {
@@ -174,7 +149,7 @@
   }
   
   .rows .cell {
-    font-family: Poppins-Regular;
+    font-family: "Poppins", "Noto+Sans+KR", sans-serif;
     font-size: 18px;
     color: #555555;
     line-height: 1.2;

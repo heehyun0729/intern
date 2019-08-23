@@ -3,8 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.emoney.hhkim.mybatis.AccountMapper">
-	<select id="list" resultType="com.emoney.hhkim.vo.AccountVo">
-		select * from account
+	<select id="list" parameterType="map" resultType="com.emoney.hhkim.vo.AccountVo">
+		select * from
+		(
+			select aa.*, rownum rnum from
+			(
+				select * from account
+				order by accnt_id desc
+			)aa
+		)
+		<![CDATA[where rnum >= #{startRow} and rnum <= #{endRow}]]>
 	</select>
 	<insert id="insert" parameterType="com.emoney.hhkim.vo.AccountVo">
 		insert into account values(account_seq.nextval, #{nickname}, #{name},
@@ -18,6 +26,9 @@
 	</select>
 	<select id="loginChk" parameterType="map" resultType="com.emoney.hhkim.vo.AccountVo">
 		select * from account where id = #{id} and s_passwd = #{s_passwd}
+	</select>
+	<select id="cnt" resultType="int">
+		select NVL(count(*), 0) from account
 	</select>
 	
 	<update id="updateLastLogin" parameterType="int">

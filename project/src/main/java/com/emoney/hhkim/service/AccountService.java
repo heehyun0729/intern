@@ -14,8 +14,8 @@ import com.emoney.hhkim.vo.LoginHistoryVo;
 public class AccountService {
 	@Autowired private AccountDao accountDao;
 	
-	public List<AccountVo> list(){
-		return accountDao.list();
+	public List<AccountVo> list(HashMap<String, Object> map){
+		return accountDao.list(map);
 	}
 	public int insert(AccountVo vo){
 		return accountDao.insert(vo);
@@ -34,5 +34,8 @@ public class AccountService {
 	}
 	public int insertLoginHistory(LoginHistoryVo vo){
 		return accountDao.insertLoginHistory(vo);
+	}
+	public int cnt(){
+		return accountDao.cnt();
 	}
 }
