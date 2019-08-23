@@ -20,6 +20,7 @@
 <link rel = "stylesheet" type = "text/css" href = "/resources/css/font-awesome.min.css">
 <link rel = "stylesheet" type = "text/css" href = "/resources/css/style.css">
 <link rel = "stylesheet" type = "text/css" href = "/resources/css/common.css">
+<link rel = "stylesheet" type = "text/css" href = "/resources/css/main.css">
 <link rel = "stylesheet" type = "text/css" href = "/resources/style.css">
 </head>
 <body>
@@ -32,7 +33,9 @@
 
 <script type="text/javascript" src = "/resources/js/popper.min.js"></script>
 <script type="text/javascript" src = "/resources/js/bootstrap.min.js"></script>
+<script type="text/javascript" src = "/resources/vendor/select2/select2.min.js"></script>
 <script type="text/javascript" src = "/resources/js/hami.bundle.js"></script>
 <script type="text/javascript" src = "/resources/js/default-assets/active.js"></script>
+<script type="text/javascript" src = "/resources/js/main.js"></script>
 </body>
 </html>
