@@ -187,64 +187,101 @@
 		$("#joinForm").submit();
 	}
 </script>
+<!-- Breadcrumb Area Start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-content">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="<c:url value='/'/>"><i class="fa fa-home" aria-hidden="true"></i> 메인</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">회원가입</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End -->
+<section class="hami-blog-details-area section-padding-80-0">
+       <div class="container">
+           <div class="row justify-content-center">
 
-
-	<h1>회원가입</h1>
-	<div>
-		<div>모든 정보는 필수항목입니다.</div>
-		<form id = "joinForm" method="post" action="<c:url value ='/join'/>">
-			<input type = "hidden" id = "checkedId" name = "id">
-			<input type = "hidden" id = "checkedPwd" name = "pwd">
-			<input type = "hidden" id = "checkedPwd2">
-			<input type = "hidden" id = "checkedName" name = "name">
-			<input type = "hidden" id = "checkedNick" name = "nickname">
-			<input type = "hidden" id = "checkedPhone" name = "phone">
-			<table>
-				<tr>
-					<th><label for="id">아이디</label></th>
-					<td>
-						<input type="text" id="id">
-						<a href = "javascript:idChk()">중복확인</a>
-						<span>4자 이상 12자 이하 영문, 숫자(띄어쓰기, 특수문자 불가)</span>
-						<span id = "idChkMsg" class = "joinChk">중복확인을 해주세요</span>
-					</td>
-				</tr>
-				<tr>
-					<th><label for="pwd">비밀번호</label></th>
-					<td>
-						<input type="password" id="pwd" onkeyup="javascript:pwdChk()">
-						<span>영어 대/소문자, 숫자, 특수문자 중 2가지 이상 조합 6자~12자(띄어쓰기 불가)</span>
-						<span id = "pwdChkMsg" class = "joinChk"></span>
-					</td>
-				</tr>
-				<tr>
-					<th><label for="pwd2">비밀번호 확인</label></th>
-					<td>
-						<input type="password" id="pwd2" onkeyup="javascript:pwdSameChk()">
-						<span id = "pwdSameChkMsg" class = "joinChk"></span>
-					</td>
-				</tr>
-				<tr>
-					<th><label for="name">성명</label></th>
-					<td>
-						<input type="text" id="name" onkeyup="javascript:nameChk()">
-						<span>한글 2자~6자(띄어쓰기 불가)</span>
-						<span id = "nameChkMsg" class = "joinChk"></span>
-					</td>
-				</tr>
-				<tr>
-					<th><label for="nickname">필명(닉네임)</label></th>
-					<td>
-						<input type="text" id="nickname">
-						<a href = "javascript:nickChk()">중복확인</a>
-						<span>영문 4자~12자,한글 2자~6자(띄어쓰기, 특수문자 불가)</span>
-						<span id = "nickChkMsg" class = "joinChk">중복확인을 해주세요</span>
-					</td>
-				</tr>
-				<tr>
-					<th><label for="phone1">휴대폰번호</label></th>
-					<td>
-						<select id="phone1" onchange="javascript:phoneChk()">
+			<div class="hami-contact-form mb-30">
+				<h2>회원가입</h2>
+				<div class="mb-30">모든 정보는 필수항목입니다.</div>
+			    <!-- Form -->
+			    <form id = "joinForm" method="post" action="<c:url value ='/join'/>">
+				    <input type = "hidden" id = "checkedId" name = "id">
+					<input type = "hidden" id = "checkedPwd" name = "pwd">
+					<input type = "hidden" id = "checkedPwd2">
+					<input type = "hidden" id = "checkedName" name = "name">
+					<input type = "hidden" id = "checkedNick" name = "nickname">
+					<input type = "hidden" id = "checkedPhone" name = "phone">
+			        <div class="row">
+			        	<!-- 아이디 -->
+			            <div class="col-12 col-lg-2 text-center">
+			                <label for="id" class = "mt-15 bold">아이디</label>
+			            </div>
+			            <div class="col-12 col-lg-5">
+			                <input type="text" id="id" class="form-control mb-30" placeholder="4자 이상 12자 이하 영문, 숫자(띄어쓰기, 특수문자 불가)">
+			            </div>
+			            <div class="col-12 col-lg-2">
+			                <a href = "javascript:idChk()" class="btn hami-btn ">중복확인</a>
+			            </div>
+			            <div class="col-12 col-lg-3">
+			                <div id = "idChkMsg" class = "joinChk mt-15">중복확인을 해주세요</div>
+			            </div>
+			            <!-- 비밀번호 -->
+			            <div class="col-12 col-lg-2 text-center">
+			                <label for="pwd" class = "mt-15 bold">비밀번호</label>
+			            </div>
+			            <div class="col-12 col-lg-7">
+			                <input type="password" id="pwd" class="form-control mb-30" placeholder="영어 대/소문자, 숫자, 특수문자 중 2가지 이상 조합 6자~12자(띄어쓰기 불가)" onkeyup="javascript:pwdChk()">
+			            </div>
+			            <div class="col-12 col-lg-3">
+			                <div id = "pwdChkMsg" class = "joinChk mt-15"></div>
+			            </div>
+			            <div class="col-12 col-lg-2 text-center">
+			                <label for="pwd2" class = "mt-15 bold">비밀번호 확인</label>
+			            </div>
+			            <div class="col-12 col-lg-7">
+			                <input type="password" id="pwd2" class="form-control mb-30" onkeyup="javascript:pwdSameChk()">
+			            </div>
+			            <div class="col-12 col-lg-3">
+			                <div id = "pwdSameChkMsg" class = "joinChk mt-15"></div>
+			            </div>
+			            <!-- 성명 -->
+			            <div class="col-12 col-lg-2 text-center">
+			                <label for="name" class = "mt-15 bold">성명</label>
+			            </div>
+			            <div class="col-12 col-lg-7">
+			                <input type="text" id="name" class="form-control mb-30" placeholder="한글 2자~6자(띄어쓰기 불가)" onkeyup="javascript:nameChk()">
+			            </div>
+			            <div class="col-12 col-lg-3">
+			                <div id = "nameChkMsg" class = "joinChk mt-15"></div>
+			            </div>
+			            <!-- 닉네임 -->
+			            <div class="col-12 col-lg-2 text-center">
+			                <label for="nickname" class = "mt-15 bold">닉네임</label>
+			            </div>
+			            <div class="col-12 col-lg-5">
+			                <input type="text" id="nickname" class="form-control mb-30" placeholder="영문 4자~12자,한글 2자~6자(띄어쓰기, 특수문자 불가)">
+			            </div>
+			            <div class="col-12 col-lg-2">
+			                <a href = "javascript:nickChk()" class="btn hami-btn ">중복확인</a>
+			            </div>
+			            <div class="col-12 col-lg-3">
+			                <div id = "nickChkMsg" class = "joinChk mt-15">중복확인을 해주세요</div>
+			            </div>
+			            <!-- 휴대폰 -->
+			            <div class="col-12 col-lg-2 text-center">
+			                <label for="name" class = "mt-15 bold">휴대폰 번호</label>
+			            </div>
+			            <div class="col-12 col-lg-2">
+			            	<select id="phone1" onchange="javascript:phoneChk()" class="form-control mb-30">
 								<option value="010">010</option>
 								<option value="011">011</option>
 								<option value="016">016</option>
@@ -252,18 +289,32 @@
 								<option value="018">018</option>
 								<option value="019">019</option>
 								<option value="070">070</option>
-						</select>
-						<span>-</span> 
-						<input type="text" id="phone2" onkeyup="javascript:phoneChk()">
-						<span>-</span> 
-						<input type="text" id="phone3" onkeyup="javascript:phoneChk()">
-						<span id = "phoneChkMsg" class = "joinChk"></span>
-					</td>
-				</tr>
-			</table>
-			<div>
-				<a href = "<c:url value = '/'/>">취소</a>
-				<a href = "javascript:validate();">회원가입</a>
+							</select> 
+			            </div>
+			             <div class="col-12 col-lg-1 text-center">
+							<div class = "mt-15 ">-</div>
+			            </div>
+			             <div class="col-12 col-lg-2">
+			            	<input type="text" id="phone2" onkeyup="javascript:phoneChk()"  class="form-control mb-30">
+			            </div>
+			            <div class="col-12 col-lg-1 text-center">
+							<div class = "mt-15 ">-</div>
+			            </div>
+			             <div class="col-12 col-lg-2">
+			            	<input type="text" id="phone3" onkeyup="javascript:phoneChk()"  class="form-control mb-30">
+			            </div>
+			            <div class="col-12 col-lg-2">
+							<div id = "phoneChkMsg" class = "joinChk mt-15"></div>
+			            </div>
+			        </div>
+			        <!-- 버튼 -->
+		            <div class = "d-flex justify-content-center">
+			            <div class="col-12 col-lg-6">
+			                <a href = "javascript:validate();" class="btn hami-btn btn-3 mt-15 w-100">회원가입</a>
+			            </div>
+		            </div>
+			    </form>
 			</div>
-		</form>
+		</div>
 	</div>
+</section>

@@ -10,5 +10,5 @@
 		<span>${msg }</span><br>
 		<input type = "submit" value = "로그인"><br>
 	</form>
-	<a href="${apiURL }"><img height="50" src="https://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+	<a href="${apiURL }"><img style = "height: 50px;" src="https://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
 </div>

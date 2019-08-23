@@ -2,6 +2,21 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<script type="text/javascript">
+	$(function() {
+		$("#writeBtn").click(function() {
+			// 에디터의 내용이 textarea에 적용된다.
+			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+				if ($("#title").val() == ''){
+					alert("제목을 입력해주세요.");
+					return;
+				}else{
+					$("#writeForm").submit();
+				}
+		});
+	});
+</script>
+
 <h1>글쓰기</h1>
 <form method = "post" id = "writeForm" action="<c:url value='/board/write'/>">
 	<input type = "hidden" value = "${sessionScope.login.accnt_id }" name = "accnt_id">
