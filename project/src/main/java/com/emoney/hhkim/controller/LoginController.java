@@ -45,7 +45,7 @@ public class LoginController {
 		}else{
 			// 네이버 로그인
 			String clientId = "Jze21sO3oqNPdg7pO21n";//애플리케이션 클라이언트 아이디값";
-		   String redirectURI = URLEncoder.encode("https://hh.x1.co.kr/naverLoginOk", "UTF-8");
+		   String redirectURI = URLEncoder.encode("https://localhost/naverLoginOk", "UTF-8");
 		   SecureRandom random = new SecureRandom();
 		   String state = new BigInteger(130, random).toString();
 		   String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
@@ -135,7 +135,7 @@ public class LoginController {
 		    String clientSecret = "E4Ra1PQPhv";//애플리케이션 클라이언트 시크릿값";
 		    String code = request.getParameter("code");
 		    String state = request.getParameter("state");
-		    String redirectURI = URLEncoder.encode("https://hh.x1.co.kr/naverLoginOk", "UTF-8");
+		    String redirectURI = URLEncoder.encode("https://localhost/naverLoginOk", "UTF-8");
 		    String apiURL;
 		    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
 		    apiURL += "client_id=" + clientId;
@@ -197,22 +197,17 @@ public class LoginController {
 		    	JSONObject json  = new JSONObject(res.toString());
 		    	JSONObject response = json.getJSONObject("response");
 		    	String id = response.getString("id");
-		    	String[] elements = JSONObject.getNames(response);
-		    	String nickname = "naver_" + id;
-		    	String name = id;
-		    	for(String element : elements){
-		    		if(element.equals("nickname")){
-		    			nickname = response.getString("nickname");
-		    		}
-		    		if(element.equals("name")){
-		    			name = response.getString("name");
-		    		}
+		    	AccountVo vo = accountService.idChk(id);
+		    	if(vo != null){ // 기존에 네이버 아이디로 가입한 경우
+			    	session.setAttribute("login", vo);
+					return "redirect:/";
+		    	}else{	// 처음 로그인하는 경우
+		    		session.setAttribute("id", id);
+		    		return ".member.naverJoin";
 		    	}
-		    	AccountVo vo = new AccountVo(-1, nickname, name, "", "", id, "", "");
-		    	session.setAttribute("login", vo);
 	        } catch (Exception e) {
 	            System.out.println(e);
+	            return ".error.error";
 	        }
-			return "redirect:/";
 	}
 }

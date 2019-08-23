@@ -1,81 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-	function idChk() {
-		var chk = /^[a-zA-Z0-9]{4,12}$/;
-		
-		var id = $("#id").val();
-		if(!chk.test(id)){	// id 유효성 검사
-			alert("아이디 형식을 확인해주세요");
-			$("#checkedId").val("");
-			$("#id").focus();
-			return;
-		}else{	// id 중복검사
-			$.ajax({
-				url: "<c:url value='/idCheck'/>",
-				dataType: "json",
-				data: {id:id},
-				success: function(data) {
-					if(data.find == true){
-						$("#idChkMsg").css("color", "red");
-						$("#idChkMsg").text("중복확인을 해주세요");
-						alert("이미 존재하는 아이디입니다");
-						$("#id").val("");
-						$("#id").focus();
-						return;
-					}else{
-						$("#idChkMsg").css("color", "green");
-						$("#idChkMsg").text("사용 가능한 아이디입니다");
-						$("#checkedId").val(id);
-					}
-				}
-			});
-		}
-	}
-	
-	function pwdChk() {
-		var chk1 = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,12}$/;   //영문,숫자
-		var chk2 = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{6,12}$/;  //영문,특수문자
-		var chk3 = /^(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{6,12}$/;  //특수문자, 숫자
-		
-		var pwd = $("#pwd").val();
-		if(chk1.test(pwd) || chk2.test(pwd) || chk3.test(pwd)){
-			$("#pwdChkMsg").css("color", "green");
-			$("#pwdChkMsg").text("사용 가능한 비밀번호입니다");
-			$("#checkedPwd").val(pwd);
-		}else{
-			$("#pwdChkMsg").css("color", "red");
-			$("#pwdChkMsg").text("비밀번호 형식을 확인해주세요");
-			$("#checkedPwd").val("");
-		}
-	}
-	
-	function pwdSameChk() {
-		var pwd = $("#pwd").val();
-		var pwd2 = $("#pwd2").val();
-		if(pwd == pwd2){
-			$("#pwdSameChkMsg").text("");
-			$("#checkedPwd2").val(pwd2);
-		}else{
-			$("#pwdSameChkMsg").text("비밀번호가 일치하지 않습니다");
-			$("#checkedPwd2").val("");
-		}
-	}
-	
-	function nameChk() {
-		var chk = /^[ㄱ-힣]{2,6}$/;
-		
-		var name = $("#name").val();
-		if(chk.test(name)){
-			$("#nameChkMsg").text("");
-			$("#checkedName").val(name);
-		}else{
-			$("#nameChkMsg").text("이름 형식을 확인해주세요");
-			$("#checkedName").val("");
-		}
-	}
-	
 	// 문자열 각 글자를 바이트로 환산해서 총 길이 리턴
 	function getLength(str) {
 		var ln = 0;
@@ -139,36 +65,9 @@
 	}
 	
 	function validate() {
-		var id = $("#id").val();
-		var checkedId = $("#checkedId").val();
-		var checkedPwd = $("#checkedPwd").val();
-		var checkedPwd2 = $("#checkedPwd2").val();
-		var checkedName = $("#checkedName").val();
 		var checkedNick = $("#checkedNick").val();
 		var nickname = $("#nickname").val();
 		var checkedPhone = $("#checkedPhone").val();
-		
-		if((checkedId != id) 
-				|| id == ""
-				|| checkedId == ""){
-			alert("아이디를 확인해주세요");
-			$("#id").focus();
-			return;
-		}
-		
-		if((checkedPwd != checkedPwd2)
-				|| checkedPwd == ""
-				|| checkedPwd2 == ""){
-			alert("비밀번호를 확인해주세요");
-			$("#pwd").focus();
-			return;
-		}
-		
-		if(checkedName == ""){
-			alert("이름을 확인해주세요");
-			$("#name").focus();
-			return;
-		}
 		
 		if((checkedNick != nickname)
 				|| checkedNick == ""
@@ -210,59 +109,14 @@
            <div class="row justify-content-center">
 
 			<div class="hami-contact-form mb-30">
-				<h2>회원가입</h2>
-				<div class="mb-30">모든 정보는 필수항목입니다.</div>
+				<h2><img src = "<c:url value= '/resources/img/naver_logo.png'/>" style = "height: 50px;margin-right: 20px;">네이버 로그인</h2>
+				<div class="mb-30">회원 정보를 추가 입력해주세요.</div>
 			    <!-- Form -->
-			    <form id = "joinForm" method="post" action="<c:url value ='/join'/>">
-				    <input type = "hidden" id = "checkedId" name = "id">
-					<input type = "hidden" id = "checkedPwd" name = "pwd">
-					<input type = "hidden" id = "checkedPwd2">
-					<input type = "hidden" id = "checkedName" name = "name">
+			    <form id = "joinForm" method="post" action="<c:url value ='/naverJoin'/>">
+				    <input type = "hidden" name = "${sessionScope.id }">
 					<input type = "hidden" id = "checkedNick" name = "nickname">
 					<input type = "hidden" id = "checkedPhone" name = "phone">
 			        <div class="row">
-			        	<!-- 아이디 -->
-			            <div class="col-12 col-lg-2 text-center">
-			                <label for="id" class = "mt-15 bold">아이디</label>
-			            </div>
-			            <div class="col-12 col-lg-5">
-			                <input type="text" id="id" class="form-control mb-30" placeholder="4자 이상 12자 이하 영문, 숫자(띄어쓰기, 특수문자 불가)">
-			            </div>
-			            <div class="col-12 col-lg-2">
-			                <a href = "javascript:idChk()" class="btn hami-btn btn-2">중복확인</a>
-			            </div>
-			            <div class="col-12 col-lg-3">
-			                <div id = "idChkMsg" class = "joinChk mt-15">중복확인을 해주세요</div>
-			            </div>
-			            <!-- 비밀번호 -->
-			            <div class="col-12 col-lg-2 text-center">
-			                <label for="pwd" class = "mt-15 bold">비밀번호</label>
-			            </div>
-			            <div class="col-12 col-lg-7">
-			                <input type="password" id="pwd" class="form-control mb-30" placeholder="영어 대/소문자, 숫자, 특수문자 중 2가지 이상 조합 6자~12자(띄어쓰기 불가)" onkeyup="javascript:pwdChk()">
-			            </div>
-			            <div class="col-12 col-lg-3">
-			                <div id = "pwdChkMsg" class = "joinChk mt-15"></div>
-			            </div>
-			            <div class="col-12 col-lg-2 text-center">
-			                <label for="pwd2" class = "mt-15 bold">비밀번호 확인</label>
-			            </div>
-			            <div class="col-12 col-lg-7">
-			                <input type="password" id="pwd2" class="form-control mb-30" onkeyup="javascript:pwdSameChk()">
-			            </div>
-			            <div class="col-12 col-lg-3">
-			                <div id = "pwdSameChkMsg" class = "joinChk mt-15"></div>
-			            </div>
-			            <!-- 성명 -->
-			            <div class="col-12 col-lg-2 text-center">
-			                <label for="name" class = "mt-15 bold">성명</label>
-			            </div>
-			            <div class="col-12 col-lg-7">
-			                <input type="text" id="name" class="form-control mb-30" placeholder="한글 2자~6자(띄어쓰기 불가)" onkeyup="javascript:nameChk()">
-			            </div>
-			            <div class="col-12 col-lg-3">
-			                <div id = "nameChkMsg" class = "joinChk mt-15"></div>
-			            </div>
 			            <!-- 닉네임 -->
 			            <div class="col-12 col-lg-2 text-center">
 			                <label for="nickname" class = "mt-15 bold">필명(닉네임)</label>
@@ -310,7 +164,7 @@
 			        <!-- 버튼 -->
 		            <div class = "d-flex justify-content-center">
 			            <div class="col-12 col-lg-6">
-			                <a href = "javascript:validate();" class="btn hami-btn btn-3 mt-15 w-100">회원가입</a>
+			                <a href = "javascript:validate();" class="btn hami-btn btn-3 mt-15 w-100">로그인</a>
 			            </div>
 		            </div>
 			    </form>

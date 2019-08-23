@@ -17,12 +17,12 @@
                     <!-- Login -->
                      <c:choose>
 						<c:when test="${empty sessionScope.login.id}">
-							<a href="<c:url value = '/login'/>">로그인</a>
-							<a href="<c:url value = '/join'/>">회원가입</a>
+							<a href="<c:url value = '/login'/>"><i class="fa fa-sign-in" aria-hidden="true"></i> 로그인</a>
+							<a href="<c:url value = '/join'/>"><i class="fa fa-user-plus" aria-hidden="true"></i> 회원가입</a>
 						</c:when>
 						<c:otherwise>
 							<div><i class="fa fa-heart" aria-hidden="true"></i> ${sessionScope.login.nickname}</div>
-							<a href="<c:url value = '/logout'/>">로그아웃</a>
+							<a href="<c:url value = '/logout'/>"><i class="fa fa-sign-out" aria-hidden="true"></i> 로그아웃</a>
 						</c:otherwise>
 					</c:choose>
                 </div>

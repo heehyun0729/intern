@@ -4,6 +4,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -66,6 +68,27 @@ public class AccountController {
 		}else{
 			return ".error.error";
 		}
+	}
+	
+	@RequestMapping(value = "/naverJoin", method = RequestMethod.POST)
+	public String naverJoin(String nickname, String phone, HttpSession session) 
+			throws NoSuchAlgorithmException{
+		String id = (String)session.getAttribute("id");
+		AccountVo vo = new AccountVo(0, nickname, nickname, "", phone, id, "pwd", null);
+		int result = accountService.insert(vo);
+		if(result > 0){
+			return ".member.joinOk";
+		}else{
+			return ".error.error";
+		}
+	}
+	
+	@RequestMapping(value = "/naverJoinOk")
+	public String naverJoinOk(HttpSession session){
+		String id = (String) session.getAttribute("id");
+		AccountVo vo = accountService.idChk(id);
+		session.setAttribute("login", vo);
+		return ".member.naverJoinOk";
 	}
 	
 	@RequestMapping("/idCheck")

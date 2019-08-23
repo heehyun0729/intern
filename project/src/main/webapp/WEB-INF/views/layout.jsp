@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<title>인턴 실습 과제 (김희현)</title>
+<title>김희현 인턴 실습</title>
 
 <script type="text/javascript" src = "/resources/js/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
@@ -16,13 +16,11 @@
 <link rel = "stylesheet" type = "text/css" href = "/resources/css/bootstrap.min.css">
 <link rel = "stylesheet" type = "text/css" href = "/resources/css/animate.css">
 <link rel = "stylesheet" type = "text/css" href = "/resources/css/default-assets/classy-nav.css">
-<link rel = "stylesheet" type = "text/css" href = "/resources/css/magnific-popup.css">
 <link rel = "stylesheet" type = "text/css" href = "/resources/css/font-awesome.min.css">
 <link rel = "stylesheet" type = "text/css" href = "/resources/css/style.css">
 <link rel = "stylesheet" type = "text/css" href = "/resources/css/common.css">
 <link rel = "stylesheet" type = "text/css" href = "/resources/vendor/animate/animate.css">
 <link rel = "stylesheet" type = "text/css" href = "/resources/vendor/select2/select2.min.css">
-<link rel = "stylesheet" type = "text/css" href = "/resources/vendor/perfect-scrollbar/perfect-scrollbar.css">
 <link rel = "stylesheet" type = "text/css" href = "/resources/css/util.css">
 <link rel = "stylesheet" type = "text/css" href = "/resources/css/main.css">
 <link rel = "stylesheet" type = "text/css" href = "/resources/style.css">
@@ -35,7 +33,6 @@
 
 	<tiles:insertAttribute name = "footer"/>
 
-<script type="text/javascript" src = "/resources/js/popper.min.js"></script>
 <script type="text/javascript" src = "/resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src = "/resources/vendor/select2/select2.min.js"></script>
 <script type="text/javascript" src = "/resources/js/hami.bundle.js"></script>
