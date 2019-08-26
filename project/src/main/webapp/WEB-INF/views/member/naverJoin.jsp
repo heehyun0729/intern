@@ -118,11 +118,14 @@
 					<input type = "hidden" id = "checkedPhone" name = "phone">
 			        <div class="row">
 			            <!-- 닉네임 -->
-			            <div class="col-12 col-lg-2 text-center">
+			            <div class="col-12 col-lg-3 text-center">
 			                <label for="nickname" class = "mt-15 bold">필명(닉네임)</label>
 			            </div>
-			            <div class="col-12 col-lg-5">
-			                <input type="text" id="nickname" class="form-control mb-30" placeholder="영문 4자~12자,한글 2자~6자(띄어쓰기, 특수문자 불가)">
+			            <div class="col-12 col-lg-4">
+			                <input type="text" id="nickname" class="form-control" aria-describedby="nicknameHelpBlock">
+			                <small id="nicknameHelpBlock" class="form-text text-muted mb-30" style = "margin-left: 15px;">
+							  영문 4자~12자,한글 2자~6자(띄어쓰기, 특수문자 불가)
+							</small>
 			            </div>
 			            <div class="col-12 col-lg-2">
 			                <a href = "javascript:nickChk()" class="btn hami-btn btn-2">중복확인</a>
@@ -131,7 +134,7 @@
 			                <div id = "nickChkMsg" class = "joinChk mt-15">중복확인을 해주세요</div>
 			            </div>
 			            <!-- 휴대폰 -->
-			            <div class="col-12 col-lg-2 text-center">
+			            <div class="col-12 col-lg-3 text-center">
 			                <label for="name" class = "mt-15 bold">휴대폰 번호</label>
 			            </div>
 			            <div class="col-12 col-lg-2">
