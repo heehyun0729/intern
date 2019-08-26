@@ -134,7 +134,7 @@ public class BoardController {
 			sb.append("&bNewLine=true")
             .append("&sFileName=").append(orgName)
             // 리눅스 경로
-            .append("&sFileURL=").append("https://52.78.90.60/resources/upload")
+            .append("&sFileURL=").append("https://52.78.90.60/resources/upload/")
 //	          // 윈도우 경로
 //	          .append("&sFileURL=").append("https://localhost/resources/upload/")
             .append(saveName);

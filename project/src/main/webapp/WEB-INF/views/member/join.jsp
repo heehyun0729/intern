@@ -210,8 +210,10 @@
            <div class="row justify-content-center">
 
 			<div class="hami-contact-form mb-30">
-				<h2>회원가입</h2>
-				<div class="mb-30">모든 정보는 필수항목입니다.</div>
+				<div class = "row d-flex justify-content-between mb-30">
+					<h2 class = "mt-15" style = "padding-left: 45px;">회원가입</h2>
+					<div class="mt-15" style = "padding-right: 45px;"><span class = "joinChk">* </span>모든 정보는 필수항목입니다.</div>	
+				</div>
 			    <!-- Form -->
 			    <form id = "joinForm" method="post" action="<c:url value ='/join'/>">
 				    <input type = "hidden" id = "checkedId" name = "id">

@@ -51,8 +51,12 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
-	public String joinForm(){
-		return ".member.join";
+	public String joinForm(HttpSession session){
+		if(session.getAttribute("login") != null){
+			return ".error.404";
+		}else{
+			return ".member.join";
+		}
 	}
 	
 	@RequestMapping(value = "/join", method = RequestMethod.POST)

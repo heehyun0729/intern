@@ -210,12 +210,21 @@ public class LoginController {
 			    	return loginProcess(vo, session, request, model);
 		    	}else{	// 처음 로그인하는 경우
 		    		session.setAttribute("id", id);
-		    		return ".member.naverJoin";
+		    		return "redirect:/naverJoinForm";
 		    	}
 	        } catch (Exception e) {
 	            System.out.println(e);
 	            return ".error.error";
 	        }
+	}
+	
+	@RequestMapping("/naverJoinForm")
+	public String naverJoinForm(HttpSession session){
+		if(session.getAttribute("login") != null){
+			return ".error.404";
+		}else{
+			return ".member.naverJoin";
+		}
 	}
 	
 	@RequestMapping(value = "/naverJoin", method = RequestMethod.POST)

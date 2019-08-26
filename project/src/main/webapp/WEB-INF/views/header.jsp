@@ -42,7 +42,7 @@
             <nav class="classy-navbar justify-content-between" id="hamiNav">
 
                 <!-- Logo -->
-                <h1><a class="nav-brand" href="<c:url value = '/'/>"  style = "color:white;">김희현 인턴 실습</a></h1>
+                <h1><a class="nav-brand" href="<c:url value = '/'/>"  style = "color:white;font-weight: 700;">김희현 인턴 실습</a></h1>
 
                 <!-- Navbar Toggler -->
                 <div class="classy-navbar-toggler">

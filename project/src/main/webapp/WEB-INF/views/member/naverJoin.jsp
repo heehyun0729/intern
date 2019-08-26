@@ -109,8 +109,10 @@
            <div class="row justify-content-center">
 
 			<div class="hami-contact-form mb-30">
-				<h2><img src = "<c:url value= '/resources/img/naver_logo.png'/>" style = "height: 50px;margin-right: 20px;">네이버 로그인</h2>
-				<div class="mb-30">회원 정보를 추가 입력해주세요.</div>
+				<div class = "row d-flex justify-content-between mb-30">
+					<h2 class = "mt-15" style = "padding-left: 45px;"><img src = "<c:url value= '/resources/img/naver_logo.png'/>" style = "height: 50px;margin-right: 20px;">네이버 로그인</h2>
+					<div class="mt-15" style = "padding-right: 45px;">회원 정보를 추가 입력해주세요.</div>	
+				</div>
 			    <!-- Form -->
 			    <form id = "joinForm" method="post" action="<c:url value ='/naverJoin'/>">
 				    <input type = "hidden" name = "${sessionScope.id }">

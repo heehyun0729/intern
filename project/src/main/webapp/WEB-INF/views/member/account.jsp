@@ -24,7 +24,9 @@
            <div class="row justify-content-center">
 
 			<div class="hami-contact-form mb-30">
-				<h2>회원목록</h2>
+				<div class = "row d-flex justify-content-start">
+					<h2 class = "mt-15" style = "padding-left: 45px;">회원목록</h2>
+				</div>
 				<div class="container-table100">
 					<div class="wrap-table100">
 						<div class="table">
