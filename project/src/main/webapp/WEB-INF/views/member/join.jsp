@@ -187,24 +187,7 @@
 		$("#joinForm").submit();
 	}
 </script>
-<!-- Breadcrumb Area Start -->
-<div class="breadcrumb-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="breadcrumb-content">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="<c:url value='/'/>"><i class="fa fa-home" aria-hidden="true"></i> 메인</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">회원가입</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Breadcrumb Area End -->
+
 <section class="hami-blog-details-area section-padding-80-0">
        <div class="container">
            <div class="row justify-content-center">
