@@ -29,7 +29,6 @@
                 <img src="<c:url value='/resources/img/bg-img/404.png'/>" alt="">
                 <h2>오류 발생</h2>
                 <p>요청한 페이지를 찾을 수 없습니다.</p>
-                <a href="javascript:history.go(-1)" class="btn hami-btn mt-30" style = "margin-right: 15px;">뒤로가기</a>
                 <a href="<c:url value = '/'/>" class="btn hami-btn mt-30">메인</a>
             </div>
         </div>
