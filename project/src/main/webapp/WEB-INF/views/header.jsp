@@ -8,7 +8,7 @@
         <div class="row">
 			<div class="col col-9">
                 <div class="top-header-content" style = "padding-top:10px;">
-                    <span><b>관리자</b> admin123 / qwe123 | <b>전문가</b> ex123, ex234 / qwe123 | <b>일반회원</b> test123 / test123</span>
+                    <span><b>관리자</b> admin123 | <b>전문가</b> ex123, ex234 | <b>일반회원</b> test111, test222, test234, test345 / <b>비밀번호</b> qwe123</span>
                 </div>
             </div>
 
@@ -17,7 +17,7 @@
                     <!-- Login -->
                      <c:choose>
 						<c:when test="${empty sessionScope.login.id}">
-							<a href="<c:url value = '/login'/>"><i class="fa fa-sign-in" aria-hidden="true"></i> 로그인</a>
+							<a href="<c:url value = '/loginForm'/>"><i class="fa fa-sign-in" aria-hidden="true"></i> 로그인</a>
 							<a href="<c:url value = '/join'/>"><i class="fa fa-user-plus" aria-hidden="true"></i> 회원가입</a>
 						</c:when>
 						<c:otherwise>

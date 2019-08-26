@@ -38,7 +38,7 @@ public class LoginController {
 	private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
 
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/loginForm", method = RequestMethod.GET)
 	public String loginForm(HttpSession session, Model model) throws UnsupportedEncodingException {
 		if(session.getAttribute("login") != null){
 			return ".error.404";
@@ -60,63 +60,70 @@ public class LoginController {
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = {Exception.class})
+	public String loginProcess(AccountVo vo, HttpSession session, HttpServletRequest request, Model model) throws Exception{
+		String url = "";
+		String msg = "";
+		if(vo == null){
+			msg = "아이디 또는 비밀번호가 일치하지 않습니다.";
+			model.addAttribute("msg", msg);
+			url = ".member.login";
+		}else{
+			int accnt_id = vo.getAccnt_id();
+			String nickname = vo.getNickname();
+			
+			// 마지막 로그인
+			int result1 = accountService.updateLastLogin(accnt_id);
+			if(result1 <= 0){
+				LOG.error("ACCOUNT update 실패 / accnt_id: " + accnt_id + ", nickname: " + nickname);
+				throw new Exception();
+			}
+			
+			// login history
+			String is_mobile = CommonUtil.isMobileChk(request);
+			String ip = request.getRemoteAddr();
+			String browser = CommonUtil.getBrowser(request);
+			String os = CommonUtil.getOs(request);
+			LoginHistoryVo lvo = new LoginHistoryVo(accnt_id, null, is_mobile, ip, browser, os);
+			int result2 = accountService.insertLoginHistory(lvo);
+			if(result2 <= 0){
+				LOG.error("LOGIN_HISTORY insert 실패 / accnt_id: " + accnt_id + ", nickname: " + nickname);
+				throw new Exception();
+			}
+			
+			if(!vo.getS_passwd().equals("pwd")){	// 일반 로그인
+				LOG.info("로그인: " + accnt_id + "(" + nickname + ")");
+			}else{	// 네이버 로그인
+				LOG.info("네이버 로그인: " + accnt_id + "(" + nickname + ")");
+			}
+			
+			session.setAttribute("login", vo);
+			String referer = (String)session.getAttribute("referer");
+			if(referer == null || referer.equals("")){
+				url = "redirect:/";
+			}else{
+				url = "redirect:" + referer;
+			}
+		}
+		return url;
+	}
+	
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(String id, String pwd, HttpSession session, HttpServletRequest request, Model model) throws Exception {
 		// 기존에 login 세션이 있는 경우
 		if (session.getAttribute("login") != null) {
 			session.removeAttribute("login");
 		}
-
 		String s_passwd;
-		try {
-			s_passwd = SecurityUtil.bytesToHex(SecurityUtil.sha256(pwd));
+		s_passwd = SecurityUtil.bytesToHex(SecurityUtil.sha256(pwd));
 
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("id", id);
-			map.put("s_passwd", s_passwd);
-	
-			AccountVo vo = accountService.loginChk(map);
-			String url = "";
-			String msg = "";
-			if (vo != null) { // 로그인 성공
-				int accnt_id = vo.getAccnt_id();
-				String nickname = vo.getNickname();
-				// 마지막 로그인
-				int result1 = accountService.updateLastLogin(accnt_id);
-				if(result1 <= 0){
-					LOG.error("ACCOUNT update 실패 / accnt_id: " + accnt_id + ", nickname: " + nickname);
-					throw new Exception();
-				}
-				// login history
-				String is_mobile = CommonUtil.isMobileChk(request);
-				String ip = request.getRemoteAddr();
-				String browser = CommonUtil.getBrowser(request);
-				String os = CommonUtil.getOs(request);
-				LoginHistoryVo lvo = new LoginHistoryVo(accnt_id, null, is_mobile, 
-	                    ip, browser, os);
-				int result2 = accountService.insertLoginHistory(lvo);
-				if(result2 <= 0){
-					LOG.error("LOGIN_HIS insert 실패 / accnt_id: " + accnt_id + ", nickname: " + nickname);
-					throw new Exception();
-				}			
-				LOG.info("로그인: " + accnt_id + "(" + nickname + ")");
-				session.setAttribute("login", vo);
-				String referer = (String)session.getAttribute("referer");
-				if(referer == null || referer.equals("")){
-					url = "redirect:/";
-				}else{
-					url = "redirect:" + referer;
-				}
-			} else { // 로그인 실패
-				msg = "아이디 또는 비밀번호가 일치하지 않습니다.";
-				model.addAttribute("msg", msg);
-				url = ".member.login";
-			}
-			return url;
-		} catch (NoSuchAlgorithmException e) {
-			LOG.error(e.getMessage());
-			throw new Exception();
-		}
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("s_passwd", s_passwd);
+
+		AccountVo vo = accountService.loginChk(map);
+		String url = loginProcess(vo, session, request, model);
+		return url;
 	}
 	
 	@RequestMapping("/logout")
@@ -172,7 +179,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/naverLoginInfo")
-	public String personalInfo(HttpServletRequest request, HttpSession session) throws Exception {
+	public String personalInfo(HttpServletRequest request, HttpSession session, Model model) throws Exception {
 	        String token = (String)session.getAttribute("token");
 	        String header = "Bearer " + token;
 	        try {
@@ -200,7 +207,7 @@ public class LoginController {
 		    	AccountVo vo = accountService.idChk(id);
 		    	if(vo != null){ // 기존에 네이버 아이디로 가입한 경우
 			    	session.setAttribute("login", vo);
-					return "redirect:/";
+			    	return loginProcess(vo, session, request, model);
 		    	}else{	// 처음 로그인하는 경우
 		    		session.setAttribute("id", id);
 		    		return ".member.naverJoin";
@@ -209,5 +216,19 @@ public class LoginController {
 	            System.out.println(e);
 	            return ".error.error";
 	        }
+	}
+	
+	@RequestMapping(value = "/naverJoin", method = RequestMethod.POST)
+	public String naverJoin(String nickname, String phone, HttpSession session, HttpServletRequest request, Model model) 
+			throws Exception{
+		String id = (String)session.getAttribute("id");
+		AccountVo vo = new AccountVo(0, nickname, nickname, "", phone, id, "pwd", null);
+		int result = accountService.insert(vo);
+		if(result > 0){
+			vo = accountService.idChk(id);
+			return loginProcess(vo, session, request, model);
+		}else{
+			return ".error.error";
+		}
 	}
 }

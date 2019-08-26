@@ -22,11 +22,15 @@
 
 	<!-- 인터셉터  -->	
  	<beans:bean class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor" /> 
-	
+	<beans:bean id="RefererInterceptor" class="com.emoney.hhkim.interceptor.RefererInterceptor" />	
 	<beans:bean id="LoginInterceptor" class="com.emoney.hhkim.interceptor.LoginInterceptor" />	
 
 	<interceptors>
-	    <interceptor>
+		<interceptor>
+			<mapping path="/login"/>
+			<beans:ref bean="RefererInterceptor"/>
+		</interceptor>
+	    <interceptor>	    	
 	        <mapping path = "/board/*"/>
 	        <exclude-mapping path="/board/list"/>
 	        <exclude-mapping path="/board/detail"/>

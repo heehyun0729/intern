@@ -70,27 +70,6 @@ public class AccountController {
 		}
 	}
 	
-	@RequestMapping(value = "/naverJoin", method = RequestMethod.POST)
-	public String naverJoin(String nickname, String phone, HttpSession session) 
-			throws NoSuchAlgorithmException{
-		String id = (String)session.getAttribute("id");
-		AccountVo vo = new AccountVo(0, nickname, nickname, "", phone, id, "pwd", null);
-		int result = accountService.insert(vo);
-		if(result > 0){
-			return ".member.joinOk";
-		}else{
-			return ".error.error";
-		}
-	}
-	
-	@RequestMapping(value = "/naverJoinOk")
-	public String naverJoinOk(HttpSession session){
-		String id = (String) session.getAttribute("id");
-		AccountVo vo = accountService.idChk(id);
-		session.setAttribute("login", vo);
-		return ".member.naverJoinOk";
-	}
-	
 	@RequestMapping("/idCheck")
 	@ResponseBody
 	public String idCheck(String id){
