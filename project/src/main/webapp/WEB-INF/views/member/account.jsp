@@ -76,7 +76,7 @@
 						<c:forEach var = "i" begin = "${pu.startPageNum }" end = "${pu.endPageNum }">
 							<c:choose>
 								<c:when test="${pu.pageNum == i }">
-									 <li class="page-item"><a href = "<c:url value='/account.hh?pageNum=${i }'/>" class="page-link active">${i }</a></li>
+									 <li class="page-item"><a href = "<c:url value='/account.hh?pageNum=${i }'/>" class="page-link" style = "background-color: #6c7ae0; color: #ffffff;border-color: #6c7ae0;">${i }</a></li>
 								</c:when>
 								<c:otherwise>
 									 <li class="page-item"><a href = "<c:url value='/account.hh?pageNum=${i }'/>" class="page-link">${i }</a></li>

@@ -2539,12 +2539,17 @@ input:focus {
   .pagination .page-link {
     padding: 12px 15px;
     color: #303030; }
-    .pagination .page-link:hover, .pagination .page-link:focus, .pagination .active {
+    .pagination .page-link:hover, .pagination .page-link:focus{
       background-color: #6c7ae0;
       color: #ffffff;
       border-color: #6c7ae0; }
     .pagination .page-link:focus {
       box-shadow: none; }
+    .pagination .active {
+    	background-color: #6c7ae0;
+      color: #ffffff;
+      border-color: #6c7ae0;
+    }
 
 .related-news-area {
   position: relative;
