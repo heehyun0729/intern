@@ -14,7 +14,6 @@ public class RefererInterceptor extends HandlerInterceptorAdapter{
 		// 요청했던 페이지로 돌아가기 위한 referer 구하기
 		String referer = request.getHeader("referer");
 		session.setAttribute("referer", referer);
-		System.out.println("interceptor: " + referer);
 		return true;
 	}
 }

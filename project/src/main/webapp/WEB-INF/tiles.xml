@@ -6,12 +6,15 @@
 		<put-attribute name="header" value="/WEB-INF/views/header.jsp" />
 		<put-attribute name="content" value="/WEB-INF/views/index.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
+		<put-attribute name="current" value="main" cascade="true"/>
 	</definition>
 
 	<definition name=".*.*" extends=".main">
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
+		<put-attribute name="current" value="{2}" cascade="true"/>
 	</definition>
 	<definition name=".*" extends=".main">
 		<put-attribute name="content" value="/WEB-INF/views/{1}.jsp" />
+		<put-attribute name="current" value="{1}" cascade="true"/>
 	</definition>
 </tiles-definitions>

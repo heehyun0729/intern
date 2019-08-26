@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="tilesx" uri="http://tiles.apache.org/tags-tiles-extras"%>
+<tilesx:useAttribute name="current" />
 <header id = "header" class="header-area">
 <!-- Top Header Area Start -->
 <div class="top-header-area">
@@ -8,7 +10,7 @@
         <div class="row">
 			<div class="col col-9">
                 <div class="top-header-content" style = "padding-top:10px;">
-                    <span><b>관리자</b> admin123 | <b>전문가</b> ex123, ex234 | <b>일반회원</b> test111, test222, test234, test345 / <b>비밀번호</b> qwe123</span>
+                    <span><b>운영자</b> admin123 | <b>전문가</b> ex123, ex234 | <b>일반회원</b> test111, test222, test234, test345 / <b>비밀번호</b> qwe123</span>
                 </div>
             </div>
 
@@ -56,9 +58,9 @@
                     <!-- Nav Start -->
                     <div class="classynav">
                         <ul id="nav">
-                            <li><a href="<c:url value = '/'/>">메인</a></li>
-                            <li><a href="<c:url value='/board/list'/>">게시판</a></li>
-                            <li><a href="<c:url value = '/account.hh'/>">회원목록</a></li>
+                            <li class="${current =='main' ? 'active': ''}"><a href="<c:url value = '/'/>">메인</a></li>
+                            <li class="${current =='list' ? 'active': ''}"><a href="<c:url value='/board/list'/>">게시판</a></li>
+                            <li class="${current =='account' ? 'active': ''}"><a href="<c:url value = '/account.hh'/>">회원목록</a></li>
                         </ul>
                     </div>
                     <!-- Nav End -->
