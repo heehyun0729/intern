@@ -27,7 +27,7 @@
 
 	<interceptors>
 		<interceptor>
-			<mapping path="/login"/>
+			<mapping path="/loginForm"/>
 			<beans:ref bean="RefererInterceptor"/>
 		</interceptor>
 	    <interceptor>	    	
