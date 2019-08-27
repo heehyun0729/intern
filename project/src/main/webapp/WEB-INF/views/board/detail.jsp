@@ -2,11 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-function deleteConfirm(board_num, accnt_id) {
+function deleteConfirm(board_num) {
 	if(confirm("정말 삭제하시겠습니까?")){
 		$.ajax({
 			url: "<c:url value='/board/delete'/>",
 			dateType: "json",
+			method: "post",
 			data: {board_num: board_num},
 			success: function(data) {
 				var result = data.result;
