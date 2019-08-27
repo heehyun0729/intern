@@ -38,14 +38,16 @@
 	
 	function pwdChk() {
 		var chk1 = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,12}$/;   //영문,숫자
-		var chk2 = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{6,12}$/;  //영문,특수문자
-		var chk3 = /^(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{6,12}$/;  //특수문자, 숫자
+		var chk2 = /^(?=.*[a-zA-Z])(?=.*[~!@#$%^&*()_+|<>?:{}]).{6,12}$/;  //영문,특수문자
+		var chk3 = /^(?=.*[~!@#$%^&*()_+|<>?:{}])(?=.*[0-9]).{6,12}$/;  //특수문자, 숫자
 		
 		var pwd = $("#pwd").val();
-		if(chk1.test(pwd) || chk2.test(pwd) || chk3.test(pwd)){
-			$("#pwdChkMsg").css("color", "green");
-			$("#pwdChkMsg").text("사용 가능한 비밀번호입니다");
-			$("#checkedPwd").val(pwd);
+		if(pwd.search(/\s/) == -1){
+			if(chk1.test(pwd) || chk2.test(pwd) || chk3.test(pwd)){
+				$("#pwdChkMsg").css("color", "green");
+				$("#pwdChkMsg").text("사용 가능한 비밀번호입니다");
+				$("#checkedPwd").val(pwd);
+			}
 		}else{
 			$("#pwdChkMsg").css("color", "red");
 			$("#pwdChkMsg").text("비밀번호 형식을 확인해주세요");
@@ -66,7 +68,7 @@
 	}
 	
 	function nameChk() {
-		var chk = /^[ㄱ-힣]{2,6}$/;
+		var chk = /^[가-힣]{2,6}$/;
 		
 		var name = $("#name").val();
 		if(chk.test(name)){
