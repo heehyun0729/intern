@@ -1,4 +1,6 @@
 @charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Noto+Sans+KR:400,500,700&display=swap&subset=korean");
+
 /* NHN Web Standardization Team (http://html.nhndesign.com/) HHJ 090226 */
 /* TEXT_TOOLBAR : FONTNAME */
 #smart_editor2 .se2_tool .se2_l_font_fam{width:202px;margin:0;padding:0}
@@ -6,7 +8,7 @@
 #smart_editor2 .se2_l_font_fam .hover,#smart_editor2 .se2_l_font_fam .active{background:#ebebeb}
 #smart_editor2 .se2_l_font_fam button{width:200px;height:21px;margin:0;padding:2px 0 2px 0px;background:none;text-align:left}
 #smart_editor2 .se2_l_font_fam button span{display:block;visibility:visible;overflow:visible;position:relative;top:auto;left:auto;width:auto;height:auto;margin:0 0 0 4px;padding:0;font-size:12px;line-height:normal;color:#333}
-#smart_editor2 .se2_l_font_fam button span span{display:inline;visibility:visible;overflow:visible;width:auto;height:auto;margin:0 0 0 4px;font-family:Verdana;font-size:12px;line-height:14px;color:#888}
+#smart_editor2 .se2_l_font_fam button span span{display:inline;visibility:visible;overflow:visible;width:auto;height:auto;margin:0 0 0 4px;font-family:"Poppins", "Noto+Sans+KR", sans-serif;font-size:12px;line-height:14px;color:#888}
 #smart_editor2 .se2_l_font_fam button span em{visibility:visible;overflow:auto;position:static;width:auto;height:auto;margin-right:-4px;font-size:12px;color:#888}
 #smart_editor2 .se2_l_font_fam .se2_division{width:162px;height:2px !important;margin:1px 0 1px 0px;border:0;background:url("../img/bg_line1.gif") 0 0 repeat-x;font-size:0;cursor:default}
 /* TEXT_TOOLBAR : FONTSIZE */
@@ -33,7 +35,7 @@
 #smart_editor2 .se2_palette2 .se2_color_set{float:left}
 #smart_editor2 .se2_palette2 .se2_selected_color{_display:inline;float:left;width:83px;height:18px;margin:0;border:1px solid #c7c7c7;background:#fff}
 #smart_editor2 .se2_palette2 .se2_selected_color span{_display:inline;float:left;width:79px;height:14px;margin:2px}
-#smart_editor2 .se2_palette2 .input_ty1{_display:inline;float:left;width:67px;height:16px;margin:0 3px 0 3px;padding:2px 2px 0 4px;font-family:tahoma;font-size:11px}
+#smart_editor2 .se2_palette2 .input_ty1{_display:inline;float:left;width:67px;height:16px;margin:0 3px 0 3px;padding:2px 2px 0 4px;font-family:"Poppins", "Noto+Sans+KR", sans-serif;font-size:11px}
 #smart_editor2 .se2_palette2 button.se2_btn_insert{float:left;width:35px;height:21px;margin-left:2px;padding:0;background:url("../img/ko_KR/btn_set.png?130306") -80px 0 no-repeat}
 #smart_editor2 .se2_gradation1{float:left;_float:none;width:201px;height:128px;margin:4px 0 0 0;border:1px solid #c7c7c7;cursor:crosshair}
 #smart_editor2 .se2_gradation2{float:left;_float:none;width:201px;height:10px;margin:4px 0 1px 0;border:1px solid #c7c7c7;cursor:crosshair}
@@ -422,7 +424,7 @@
 #smart_editor2 .se2_qe13 .se2_layer_b_style{right:-2px;_right:0}
 #smart_editor2 .se2_qe13 .se2_layer_b_style li span{width:auto;margin:0 4px 0 5px;padding-top:2px}
 #smart_editor2 .se2_qe13 dd{_display:inline;float:left;position:relative;width:29px;margin-right:5px;_margin-right:3px;zoom:1}
-#smart_editor2 .se2_qe13 dd .se2_palette h4{margin-top:9px;font-family:dotum;font-size:12px}
+#smart_editor2 .se2_qe13 dd .se2_palette h4{margin-top:9px;font-family:"Poppins", "Noto+Sans+KR", sans-serif;font-size:12px}
 #smart_editor2 .se2_qe13 dd.dd_type{width:38px}
 #smart_editor2 .se2_qe13 dd.dd_type2{width:37px;margin-right:3px}
 #smart_editor2 .se2_qe13 dd.dd_type2 .input_ty1{width:29px}
