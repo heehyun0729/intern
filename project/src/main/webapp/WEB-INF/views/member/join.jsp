@@ -10,6 +10,8 @@
 			alert("아이디 형식을 확인해주세요");
 			$("#checkedId").val("");
 			$("#id").focus();
+			$("#idChkMsg").css("color", "red");
+			$("#idChkMsg").text("중복확인을 해주세요");
 			return;
 		}else{	// id 중복검사
 			$.ajax({
@@ -101,6 +103,8 @@
 			alert("닉네임 형식을 확인해주세요.");
 			$("#checkedNick").val("");
 			$("#nickname").focus();
+			$("#nickChkMsg").css("color", "red");
+			$("#nickChkMsg").text("중복확인을 해주세요");
 			return;
 		}else{	// 닉네임 중복검사
 			$.ajax({
