@@ -28,6 +28,9 @@
 							</c:forEach>
 						</div>
 					</div>
+					<c:if test="${empty list }">
+						<div class = "row" style = "height: 60px;padding: 20px;text-align: center;">조회된 내용이 없습니다.</div>
+					</c:if>
 				</div>
                 <nav class="hami-pagination mb-50 d-flex justify-content-between" style = "padding: 0 30px;">
                 	<!-- Search Form -->
