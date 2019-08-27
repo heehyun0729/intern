@@ -36,7 +36,7 @@ public class AccountDao {
 	public int insertLoginHistory(LoginHistoryVo vo){
 		return sqlSession.insert(NAMESPACE + ".insertLoginHistory", vo);
 	}
-	public int cnt(){
-		return sqlSession.selectOne(NAMESPACE + ".cnt");
+	public int cnt(HashMap<String, Object> map){
+		return sqlSession.selectOne(NAMESPACE + ".cnt", map);
 	}
 }

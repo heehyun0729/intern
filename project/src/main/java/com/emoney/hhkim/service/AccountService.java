@@ -28,5 +28,5 @@ public interface AccountService {
 	public int insertLoginHistory(LoginHistoryVo vo);
 	
 	// ÆäÀÌÂ¡
-	public int cnt();
+	public int cnt(HashMap<String, Object> map);
 }

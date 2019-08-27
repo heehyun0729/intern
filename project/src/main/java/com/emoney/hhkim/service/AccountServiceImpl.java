@@ -75,7 +75,7 @@ public class AccountServiceImpl implements AccountService{
 	}
 	
 	@Override
-	public int cnt(){
-		return accountDao.cnt();
+	public int cnt(HashMap<String, Object> map){
+		return accountDao.cnt(map);
 	}
 }

@@ -3,6 +3,18 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.emoney.hhkim.mybatis.AccountMapper">
+	<sql id="search">
+		<if test="keyword != null and keyword != ''">
+			<choose>
+				<when test="field == 'accnt_id'">
+					where accnt_id = #{keyword}
+				</when>
+				<otherwise>
+					where ${field} like '%'||#{keyword}||'%'
+				</otherwise>
+			</choose>
+		</if>
+	</sql>
 	<select id="list" parameterType="map" resultType="com.emoney.hhkim.vo.AccountVo">
 		select * from
 		(
@@ -11,6 +23,7 @@
 				select * from account
 				order by accnt_id desc
 			)aa
+			<include refid="search"/>
 		)
 		<![CDATA[where rnum >= #{startRow} and rnum <= #{endRow}]]>
 	</select>
@@ -27,8 +40,9 @@
 	<select id="login" parameterType="map" resultType="com.emoney.hhkim.vo.AccountVo">
 		select * from account where id = #{id} and s_passwd = #{s_passwd}
 	</select>
-	<select id="cnt" resultType="int">
+	<select id="cnt" resultType="int" parameterType="map">
 		select NVL(count(*), 0) from account
+		<include refid="search"/>
 	</select>
 	
 	<update id="updateLastLogin" parameterType="int">

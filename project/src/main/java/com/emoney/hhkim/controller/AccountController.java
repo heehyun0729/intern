@@ -42,11 +42,15 @@ public class AccountController {
 	private static final Logger LOG = LoggerFactory.getLogger(AccountController.class);
 	
 	@RequestMapping("/account.hh")
-	public String list(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, Model model){
-		int totalRowCnt = accountServiceImpl.cnt();
+	public String list(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, Model model,
+			String field, String keyword){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("field", field);
+		map.put("keyword", keyword);
+		
+		int totalRowCnt = accountServiceImpl.cnt(map);
 		PageUtil pu = new PageUtil(pageNum, 5, 5, totalRowCnt);
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("pageNum", pageNum);
 		map.put("startRow", pu.getStartRow());
 		map.put("endRow", pu.getEndRow());

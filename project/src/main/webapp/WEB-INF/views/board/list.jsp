@@ -7,7 +7,10 @@
 			<div class="hami-contact-form mb-30">
 				<div class = "row d-flex justify-content-between">
 					<h2 class = "mt-15" style = "padding-left: 45px;">게시판</h2>
-					<a href = "<c:url value='/board/write'/>" class = "btn hami-btn btn-3 mt-15" style = "margin-right: 45px;">글쓰기</a>
+					<div>
+						<a href = "<c:url value='/board/list'/>" class = "btn hami-btn btn-2 mt-15" style = "margin-right: 20px;">전체 목록</a>
+						<a href = "<c:url value='/board/write'/>" class = "btn hami-btn btn-3 mt-15" style = "margin-right: 45px;">글쓰기</a>
+					</div>
 				</div>
 				<div class="container-table100">
 					<div class="wrap-table100">
@@ -29,7 +32,7 @@
 						</div>
 					</div>
 					<c:if test="${empty list }">
-						<div class = "row" style = "height: 60px;padding: 20px;text-align: center;">조회된 내용이 없습니다.</div>
+						<div class = "row" style = "height: 60px;padding: 20px;text-align: center;">조회된 결과 없습니다.</div>
 					</c:if>
 				</div>
                 <nav class="hami-pagination mb-50 d-flex justify-content-between" style = "padding: 0 30px;">
