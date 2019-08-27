@@ -52,7 +52,7 @@
   	<if test="keyword != null and keyword != ''">
 		<choose>
 			<when test="field == 'all'">
-				and title like '%'||#{keyword}||'%' or content like '%'||#{keyword}||'%'
+				and (title like '%'||#{keyword}||'%' or content like '%'||#{keyword}||'%')
 			</when>
 			<otherwise>
 				and ${field} like '%'||#{keyword}||'%'

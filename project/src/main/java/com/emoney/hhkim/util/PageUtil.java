@@ -101,5 +101,12 @@ public class PageUtil {
 	public void setTotalRowCnt(int totalRowCnt) {
 		this.totalRowCnt = totalRowCnt;
 	}
+
+	@Override
+	public String toString() {
+		return "PageUtil [pageNum=" + pageNum + ", startRow=" + startRow + ", endRow=" + endRow + ", totalPageCnt="
+				+ totalPageCnt + ", startPageNum=" + startPageNum + ", endPageNum=" + endPageNum + ", rowBlockCnt="
+				+ rowBlockCnt + ", pageBlockCnt=" + pageBlockCnt + ", totalRowCnt=" + totalRowCnt + "]";
+	}
 	
 }
