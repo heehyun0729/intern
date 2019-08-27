@@ -42,7 +42,7 @@
 		var chk3 = /^(?=.*[~!@#$%^&*()_+|<>?:{}])(?=.*[0-9]).{6,12}$/;  //특수문자, 숫자
 		
 		var pwd = $("#pwd").val();
-		if(pwd.search(/\s/) == -1){
+		if(pwd.search(/\s/) == -1){	// 공백 검사
 			if(chk1.test(pwd) || chk2.test(pwd) || chk3.test(pwd)){
 				$("#pwdChkMsg").css("color", "green");
 				$("#pwdChkMsg").text("사용 가능한 비밀번호입니다");
@@ -97,7 +97,7 @@
 	} 
 	
 	function nickChk() {
-		var chk = /^[0-9a-zA-Zㄱ-힣]{2,12}$/;
+		var chk = /^[a-zA-Zㄱ-힣]{2,12}$/;
 		
 		var nickname = $("#nickname").val();
 		var ln = getLength(nickname);
@@ -279,11 +279,13 @@
 			            <div class="col-12 col-lg-3">
 			                <div id = "nickChkMsg" class = "joinChk mt-15">중복확인을 해주세요</div>
 			            </div>
+			        </div>
+			        <div class = "d-flex justify-content-start">
 			            <!-- 휴대폰 -->
 			            <div class="col-12 col-lg-3 text-center">
 			                <label for="name" class = "mt-15 bold">휴대폰 번호</label>
 			            </div>
-			            <div class="col-12 col-lg-2">
+			        	<div style = "width:130px;margin-right: 15px;" >
 			            	<select id="phone1" onchange="javascript:phoneChk()" class="form-control mb-30">
 								<option value="010">010</option>
 								<option value="011">011</option>
@@ -294,19 +296,19 @@
 								<option value="070">070</option>
 							</select> 
 			            </div>
-			             <div class="col-12 col-lg-1 text-center">
+			        	<div class="text-center" style = "width: 60px;">
 							<div class = "mt-15 ">-</div>
 			            </div>
 			             <div class="col-12 col-lg-2">
 			            	<input type="text" id="phone2" onkeyup="javascript:phoneChk()"  class="form-control mb-30">
 			            </div>
-			            <div class="col-12 col-lg-1 text-center">
+			            <div class="text-center" style = "width: 60px;">
 							<div class = "mt-15 ">-</div>
 			            </div>
 			             <div class="col-12 col-lg-2">
 			            	<input type="text" id="phone3" onkeyup="javascript:phoneChk()"  class="form-control mb-30">
 			            </div>
-			            <div class="col-12 col-lg-2">
+			            <div class="col-12 col-lg-3">
 							<div id = "phoneChkMsg" class = "joinChk mt-15"></div>
 			            </div>
 			        </div>

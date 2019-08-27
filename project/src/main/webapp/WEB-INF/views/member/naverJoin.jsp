@@ -19,7 +19,7 @@
 	} 
 	
 	function nickChk() {
-		var chk = /^[0-9a-zA-Zㄱ-힣]{2,12}$/;
+		var chk = /^[a-zA-Zㄱ-힣]{2,12}$/;
 		
 		var nickname = $("#nickname").val();
 		var ln = getLength(nickname);
@@ -106,7 +106,7 @@
 			            <div class="col-12 col-lg-3 text-center">
 			                <label for="nickname" class = "mt-15 bold">필명(닉네임)</label>
 			            </div>
-			            <div class="col-12 col-lg-4">
+			            <div class="col-12 col-lg-5">
 			                <input type="text" id="nickname" class="form-control" aria-describedby="nicknameHelpBlock">
 			                <small id="nicknameHelpBlock" class="form-text text-muted mb-30" style = "margin-left: 15px;">
 							  영문 4자~12자,한글 2자~6자(띄어쓰기, 특수문자 불가)
@@ -115,14 +115,16 @@
 			            <div class="col-12 col-lg-2">
 			                <a href = "javascript:nickChk()" class="btn hami-btn btn-2">중복확인</a>
 			            </div>
-			            <div class="col-12 col-lg-3">
+			            <div class="col-12 col-lg-2">
 			                <div id = "nickChkMsg" class = "joinChk mt-15">중복확인을 해주세요</div>
 			            </div>
+			        </div>
+			        <div class = "d-flex justify-content-start">
 			            <!-- 휴대폰 -->
 			            <div class="col-12 col-lg-3 text-center">
 			                <label for="name" class = "mt-15 bold">휴대폰 번호</label>
 			            </div>
-			            <div class="col-12 col-lg-2">
+			        	<div style = "width:200px;margin-right: 15px;" >
 			            	<select id="phone1" onchange="javascript:phoneChk()" class="form-control mb-30">
 								<option value="010">010</option>
 								<option value="011">011</option>
@@ -133,19 +135,19 @@
 								<option value="070">070</option>
 							</select> 
 			            </div>
-			             <div class="col-12 col-lg-1 text-center">
+			        	<div class="text-center" style = "width: 60px;">
 							<div class = "mt-15 ">-</div>
 			            </div>
 			             <div class="col-12 col-lg-2">
 			            	<input type="text" id="phone2" onkeyup="javascript:phoneChk()"  class="form-control mb-30">
 			            </div>
-			            <div class="col-12 col-lg-1 text-center">
+			            <div class="text-center" style = "width: 60px;">
 							<div class = "mt-15 ">-</div>
 			            </div>
 			             <div class="col-12 col-lg-2">
 			            	<input type="text" id="phone3" onkeyup="javascript:phoneChk()"  class="form-control mb-30">
 			            </div>
-			            <div class="col-12 col-lg-2">
+			            <div style = "width: 250px;padding: 0 15px;">
 							<div id = "phoneChkMsg" class = "joinChk mt-15"></div>
 			            </div>
 			        </div>
