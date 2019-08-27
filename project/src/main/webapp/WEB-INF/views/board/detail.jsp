@@ -51,7 +51,7 @@ function deleteConfirm(board_num) {
         <div class="row justify-content-center">
             <div class="col-12 col-lg-10 d-flex justify-content-between">
             	<div>
-                	<a href = "<c:url value='/board/list?pageNum=${param.pageNum }'/>" class = "btn hami-btn btn-2 mt-15">목록</a>
+                	<a href = "<c:url value='/board/list?pageNum=${param.pageNum }&field=${param.field }&keyword=${param.keyword }'/>" class = "btn hami-btn btn-2 mt-15">목록</a>
                 </div>
                 <div>
 				<c:if test="${sessionScope.login.accnt_id == vo.accnt_id 

@@ -30,7 +30,7 @@ public class BoardDao {
 	public int delete(int board_num){
 		return sqlSession.delete(NAMESPACE + ".delete", board_num);
 	}
-	public int cnt(){
-		return sqlSession.selectOne(NAMESPACE + ".cnt");
+	public int cnt(HashMap<String, Object> map){
+		return sqlSession.selectOne(NAMESPACE + ".cnt", map);
 	}
 }

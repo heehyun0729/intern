@@ -50,7 +50,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 	
 	@Override
-	public int cnt(){
-		return boardDao.cnt();
+	public int cnt(HashMap<String, Object> map){
+		return boardDao.cnt(map);
 	}
 }

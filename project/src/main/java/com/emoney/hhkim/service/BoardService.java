@@ -17,5 +17,5 @@ public interface BoardService {
 	public int update(HashMap<String, Object> map);
 	public String delete(int board_num);
 	
-	public int cnt();
+	public int cnt(HashMap<String, Object> map);
 }

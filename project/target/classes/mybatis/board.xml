@@ -18,6 +18,16 @@
 				where a.accnt_id = b.accnt_id
 				order by b.board_num desc
 			)aa
+			<if test="keyword != null and keyword != ''">
+				<choose>
+					<when test="field == 'all'">
+						where title like '%'||#{keyword}||'%' or content like '%'||#{keyword}||'%'
+					</when>
+					<otherwise>
+						where ${field} like '%'||#{keyword}||'%'
+					</otherwise>
+				</choose>
+			</if>
 		)
 		<![CDATA[where rnum >= #{startRow} and rnum <= #{endRow}]]>
 	</select>
@@ -34,7 +44,20 @@
   <delete id="delete" parameterType="int">
   	delete from board where board_num = #{board_num}
   </delete>
-  <select id="cnt" resultType="int">
-  	select NVL(count(*), 0) from board
+  
+  <select id="cnt" resultType="int" parameterType="map">
+  	select NVL(count(*), 0) 
+  	from board b, account a
+	where b.accnt_id = a.accnt_id
+  	<if test="keyword != null and keyword != ''">
+		<choose>
+			<when test="field == 'all'">
+				and title like '%'||#{keyword}||'%' or content like '%'||#{keyword}||'%'
+			</when>
+			<otherwise>
+				and ${field} like '%'||#{keyword}||'%'
+			</otherwise>
+		</choose>
+	</if>
   </select>
 </mapper>

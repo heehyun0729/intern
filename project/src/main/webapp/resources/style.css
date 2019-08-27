@@ -3039,7 +3039,6 @@ input:focus {
     position: relative;
     z-index: 1; }
     .single-widget-area .widget-form input {
-      width: 100%;
       height: 50px;
       border: 1px solid #ebebeb;
       border-radius: 0;

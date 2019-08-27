@@ -21,7 +21,7 @@
 							<c:forEach var="vo" items="${list }">
 								<div class="rows">
 									<div class="cell list">${vo.board_num }</div>
-									<div class="cell list"><a href = "<c:url value='/board/detail?pageNum=${param.pageNum }&board_num=${vo.board_num }'/>">${vo.title }</a></div>
+									<div class="cell list"><a href = "<c:url value='/board/detail?pageNum=${param.pageNum }&field=${param.field }&keyword=${param.keyword }&board_num=${vo.board_num }'/>">${vo.title }</a></div>
 									<div class="cell list">${vo.nickname }</div>
 									<div class="cell list">${vo.wdate }</div>
 								</div>
@@ -29,24 +29,45 @@
 						</div>
 					</div>
 				</div>
-				<!-- Pagination -->
-                <nav class="hami-pagination mb-50">
-                    <ul class="pagination d-flex justify-content-center">
+                <nav class="hami-pagination mb-50 d-flex justify-content-between" style = "padding: 0 30px;">
+                	<!-- Search Form -->
+                	<div class="single-widget-area mb-50">
+	                    <form action="<c:url value='/board/list'/>" method="get" class="widget-form form-inline">
+	                    	<select name = "field" class="form-control" style = "width: 130px;margin-right: 20px;">
+	                    		<option value = "all"
+	                    			<c:if test = "${param.field == 'all' }"> selected = "selected" </c:if>
+	                    		>제목+내용</option>
+	                    		<option value = "title"
+	                    			<c:if test = "${param.field == 'title' }"> selected = "selected" </c:if>
+	                    		>제목</option>
+	                    		<option value = "content"
+	                    			<c:if test = "${param.field == 'content' }"> selected = "selected" </c:if>
+	                    		>내용</option>
+	                    		<option value = "nickname"
+	                    			<c:if test = "${param.field == 'nickname' }"> selected = "selected" </c:if>
+	                    		>작성자</option>
+	                    	</select>
+	                        <input type="text" name = "keyword" placeholder="검색" value = "${param.keyword }">
+	                        <button type="submit"><i class="fa fa-search"></i></button>
+	                    </form>
+	                </div>
+					<!-- Pagination -->
+                    <ul class="pagination ">
                     	<c:if test="${pu.startPageNum > 1 }">
-							 <li class="page-item"><a href = "<c:url value = '/board/list?pageNum=${pu.startPageNum - 1 }'/>" class="page-link">&lt;</a></li>
+							 <li class="page-item"><a href = "<c:url value = '/board/list?pageNum=${pu.startPageNum - 1 }&field=${param.field }&keyword=${param.keyword }'/>" class="page-link">&lt;</a></li>
 						</c:if>
 						<c:forEach var = "i" begin = "${pu.startPageNum }" end = "${pu.endPageNum }">
 							<c:choose>
 								<c:when test="${pu.pageNum == i }">
-									 <li class="page-item"><a href = "<c:url value='/board/list?pageNum=${i }'/>" class="page-link" style = "background-color: #6c7ae0; color: #ffffff;border-color: #6c7ae0;">${i }</a></li>
+									 <li class="page-item"><a href = "<c:url value='/board/list?pageNum=${i }&field=${param.field }&keyword=${param.keyword }'/>" class="page-link" style = "background-color: #6c7ae0; color: #ffffff;border-color: #6c7ae0;">${i }</a></li>
 								</c:when>
 								<c:otherwise>
-									 <li class="page-item"><a href = "<c:url value='/board/list?pageNum=${i }'/>" class="page-link">${i }</a></li>
+									 <li class="page-item"><a href = "<c:url value='/board/list?pageNum=${i }&field=${param.field }&keyword=${param.keyword }'/>" class="page-link">${i }</a></li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
 						<c:if test="${pu.endPageNum < pu.totalPageCnt }">
-							 <li class="page-item"><a href = "<c:url value = '/board/list?pageNum=${pu.endPageNum + 1 }'/>" class="page-link">&gt;</a></li>
+							 <li class="page-item"><a href = "<c:url value = '/board/list?pageNum=${pu.endPageNum + 1 }&field=${param.field }&keyword=${param.keyword }'/>" class="page-link">&gt;</a></li>
 						</c:if>
                     </ul>
                 </nav>
