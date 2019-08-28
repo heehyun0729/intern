@@ -194,7 +194,7 @@
 	}
 </script>
 
-<section class="hami-blog-details-area section-padding-80-0">
+<section class="hami-blog-details-area pt-50">
        <div class="container">
            <div class="row justify-content-center">
 

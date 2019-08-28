@@ -10,7 +10,6 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.emoney.hhkim.service.BoardService;
 import com.emoney.hhkim.service.BoardServiceImpl;
 import com.emoney.hhkim.util.PageUtil;
 import com.emoney.hhkim.vo.BoardListVo;

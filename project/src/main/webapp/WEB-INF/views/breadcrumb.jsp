@@ -5,7 +5,7 @@
 <tilesx:useAttribute name="current" />
 <tilesx:useAttribute name="breadcrumb" />
 <c:if test="${breadcrumb != 'main' }">
-<div class="breadcrumb-area">
+<div class="breadcrumb-area" style = "background-color: #ebebeb;padding-bottom: 30px;">
     <div class="container">
         <div class="row">
             <div class="col-12">

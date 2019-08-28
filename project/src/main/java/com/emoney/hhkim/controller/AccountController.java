@@ -7,7 +7,6 @@ import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.emoney.hhkim.service.AccountService;
 import com.emoney.hhkim.service.AccountServiceImpl;
 import com.emoney.hhkim.util.CommonUtil;
 import com.emoney.hhkim.util.PageUtil;
@@ -81,10 +79,9 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public String join(String id, String pwd, String name, String nickname, String phone) 
-			throws NoSuchAlgorithmException{
+	public String join(String id, String pwd, String name, String nickname, String phone) {
 		// 비밀번호 암호화
-		String s_passwd = SecurityUtil.bytesToHex(SecurityUtil.sha256(pwd));
+		String s_passwd = SecurityUtil.sha256(pwd);
 		
 		AccountVo vo = new AccountVo(0, nickname, name, "", phone, id, s_passwd, null);
 		int result = accountServiceImpl.insert(vo);
@@ -184,7 +181,7 @@ public class AccountController {
 			session.removeAttribute("login");
 		}
 		String s_passwd;
-		s_passwd = SecurityUtil.bytesToHex(SecurityUtil.sha256(pwd));
+		s_passwd = SecurityUtil.sha256(pwd);
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);

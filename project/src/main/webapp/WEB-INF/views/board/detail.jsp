@@ -24,7 +24,7 @@ function deleteConfirm(board_num) {
 }
 </script>
 <!-- Blog Details Area Start -->
-<section class="hami-blog-details-area section-padding-80-0">
+<section class="hami-blog-details-area pt-50">
     <div class="container">
     <div class = "row d-flex justify-content-end mb-50">
 		<a href = "<c:url value='/board/write'/>" class = "btn hami-btn btn-3 mt-15" style = "margin-right: 45px;">글쓰기</a>
