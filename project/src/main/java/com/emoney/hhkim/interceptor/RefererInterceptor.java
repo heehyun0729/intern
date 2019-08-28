@@ -13,6 +13,9 @@ public class RefererInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();
 		// 요청했던 페이지로 돌아가기 위한 referer 구하기
 		String referer = request.getHeader("referer");
+		if(referer.equals("https://hh.x1.co.kr/join")){
+			referer = "https://hh.x1.co.kr/";
+		}
 		session.setAttribute("referer", referer);
 		return true;
 	}

@@ -7,8 +7,9 @@
            <div class="row justify-content-center">
 
 			<div class="hami-contact-form mb-30">
-				<div class = "row d-flex justify-content-start">
+				<div class = "row d-flex justify-content-between">
 					<h2 class = "mt-15" style = "padding-left: 45px;">회원목록</h2>
+					<a href = "<c:url value='/account.hh'/>" class = "btn hami-btn btn-2 mt-15" style = "margin-right: 45px;">전체 목록</a>
 				</div>
 				<div class="container-table100">
 					<div class="wrap-table100">
