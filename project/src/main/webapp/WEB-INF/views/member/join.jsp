@@ -58,6 +58,10 @@ function pwdChk() {
 			$("#pwdChkMsg").css("color", "green");
 			$("#pwdChkMsg").text("사용 가능한 비밀번호입니다");
 			return true;
+		}else{
+			$("#pwdChkMsg").css("color", "red");
+			$("#pwdChkMsg").text("비밀번호 형식을 확인해주세요");
+			return false;
 		}
 	}else{
 		$("#pwdChkMsg").css("color", "red");

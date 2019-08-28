@@ -10,6 +10,10 @@
 
 <title>김희현 인턴 실습</title>
 
+<!-- Favicon -->
+<link rel="icon" href="/resources/favicon.ico">
+
+
 <script type="text/javascript" src = "/resources/js/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
 
