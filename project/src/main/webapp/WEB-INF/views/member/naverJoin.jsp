@@ -2,9 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-	// 문자열 각 글자를 바이트로 환산해서 총 길이 리턴
+	var nickChecked = false;
+	
+	// 문자열 각 글자를 바이트로 환산해서 총 길이 리턴(한글은 2, 영문은 1로 처리)
 	function getLength(str) {
-		var ln = 0;
+		var ln = 0;	
 		var ch = "";
 		
 		for(var i = 0 ; i < str.length ; i++){
@@ -17,7 +19,7 @@
 		}
 		return ln;
 	} 
-	
+
 	function nickChk() {
 		var chk = /^[a-zA-Zㄱ-힣]{2,12}$/;
 		
@@ -25,8 +27,9 @@
 		var ln = getLength(nickname);
 		if(!chk.test(nickname) || ln < 4 || ln > 12){	// 닉네임 유효성 검사
 			alert("닉네임 형식을 확인해주세요.");
-			$("#checkedNick").val("");
 			$("#nickname").focus();
+			$("#nickChkMsg").css("color", "red");
+			$("#nickChkMsg").text("중복확인을 해주세요");
 			return;
 		}else{	// 닉네임 중복검사
 			$.ajax({
@@ -44,40 +47,44 @@
 					}else{
 						$("#nickChkMsg").css("color", "green");
 						$("#nickChkMsg").text("사용 가능한 닉네임입니다");
-						$("#checkedNick").val(nickname);
+						nickChecked = true;
 					}
 				}
 			});
 		}
 	}
-	
+
+	function isNickChecked() {
+		if(nickChecked == true){
+			$("#nickChkMsg").css("color", "red");
+			$("#nickChkMsg").text("중복확인을 해주세요");
+			nickChecked = false;
+		}
+	}
+
 	function phoneChk() {
-		var chk = /^\d{3}-?([0-9]{3,4})-?([0-9]{4})$/;
+		var chk = /^\d{3}-?(\d{3,4})-?(\d{4})$/;
 		
 		var phone = $("#phone1").val() + "-" + $("#phone2").val() + "-" + $("#phone3").val();
 		if(chk.test(phone)){
 			$("#phoneChkMsg").text("");
-			$("#checkedPhone").val(phone);
+			$("#phone").val(phone);
+			return true;
 		}else{
 			$("#phoneChkMsg").text("전화번호 형식을 확인해주세요");
-			$("#checkedPhone").val("");
+			$("#phone").val("");
+			return false;
 		}
 	}
-	
-	function validate() {
-		var checkedNick = $("#checkedNick").val();
-		var nickname = $("#nickname").val();
-		var checkedPhone = $("#checkedPhone").val();
-		
-		if((checkedNick != nickname)
-				|| checkedNick == ""
-				|| nickname == ""){
-			alert("닉네임을 확인해주세요");
+
+	function validate() {				
+		if(nickChecked == false){
+			alert("닉네임 중복확인을 해주세요");
 			$("#nickname").focus();
 			return;
 		}
 		
-		if(checkedPhone == ""){
+		if(!phoneChk()){
 			alert("전화번호를 확인해주세요");
 			$("#phone2").focus();
 			return;
@@ -99,15 +106,14 @@
 			    <!-- Form -->
 			    <form id = "joinForm" method="post" action="<c:url value ='/naverJoin'/>">
 				    <input type = "hidden" name = "${sessionScope.id }">
-					<input type = "hidden" id = "checkedNick" name = "nickname">
-					<input type = "hidden" id = "checkedPhone" name = "phone">
+					<input type = "hidden" id = "phone" name = "phone">
 			        <div class="row">
 			            <!-- 닉네임 -->
 			            <div class="col-12 col-lg-3 text-center">
 			                <label for="nickname" class = "mt-15 bold">필명(닉네임)</label>
 			            </div>
 			            <div class="col-12 col-lg-5">
-			                <input type="text" id="nickname" class="form-control" aria-describedby="nicknameHelpBlock">
+			                <input type="text" id="nickname" name = "nickname" onkeyup="javascript:isNickChecked()" class="form-control" aria-describedby="nicknameHelpBlock">
 			                <small id="nicknameHelpBlock" class="form-text text-muted mb-30" style = "margin-left: 15px;">
 							  영문 4자~12자,한글 2자~6자(띄어쓰기, 특수문자 불가)
 							</small>

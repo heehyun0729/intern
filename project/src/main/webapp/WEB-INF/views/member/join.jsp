@@ -2,196 +2,201 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-	function idChk() {
-		var chk = /^[a-zA-Z0-9]{4,12}$/;
-		
-		var id = $("#id").val();
-		if(!chk.test(id)){	// id 유효성 검사
-			alert("아이디 형식을 확인해주세요");
-			$("#checkedId").val("");
-			$("#id").focus();
-			$("#idChkMsg").css("color", "red");
-			$("#idChkMsg").text("중복확인을 해주세요");
-			return;
-		}else{	// id 중복검사
-			$.ajax({
-				url: "<c:url value='/idCheck'/>",
-				dataType: "json",
-				data: {id:id},
-				success: function(data) {
-					if(data.find == true){
-						$("#idChkMsg").css("color", "red");
-						$("#idChkMsg").text("중복확인을 해주세요");
-						alert("이미 존재하는 아이디입니다");
-						$("#id").val("");
-						$("#id").focus();
-						return;
-					}else{
-						$("#idChkMsg").css("color", "green");
-						$("#idChkMsg").text("사용 가능한 아이디입니다");
-						$("#checkedId").val(id);
-					}
+// 아이디, 닉네임 중복검사 여부
+var idChecked = false;
+var nickChecked = false;
+
+function idChk() {
+	var chk = /^[a-zA-Z0-9]{4,12}$/;
+	
+	var id = $("#id").val();
+	if(!chk.test(id)){	// id 유효성 검사
+		alert("아이디 형식을 확인해주세요");
+		$("#id").focus();
+		$("#idChkMsg").css("color", "red");
+		$("#idChkMsg").text("중복확인을 해주세요");
+		return;
+	}else{	// id 중복검사
+		$.ajax({
+			url: "<c:url value='/idCheck'/>",
+			dataType: "json",
+			data: {id:id},
+			success: function(data) {
+				if(data.find == true){
+					$("#idChkMsg").css("color", "red");
+					$("#idChkMsg").text("중복확인을 해주세요");
+					alert("이미 존재하는 아이디입니다");
+					$("#id").val("");
+					$("#id").focus();
+					return;
+				}else{
+					$("#idChkMsg").css("color", "green");
+					$("#idChkMsg").text("사용 가능한 아이디입니다");
+					idChecked = true;
 				}
-			});
-		}
-	}
-	
-	function pwdChk() {
-		var chk1 = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,12}$/;   //영문,숫자
-		var chk2 = /^(?=.*[a-zA-Z])(?=.*[~!@#$%^&*()_+|<>?:{}]).{6,12}$/;  //영문,특수문자
-		var chk3 = /^(?=.*[~!@#$%^&*()_+|<>?:{}])(?=.*[0-9]).{6,12}$/;  //특수문자, 숫자
-		
-		var pwd = $("#pwd").val();
-		if(pwd.search(/\s/) == -1){	// 공백 검사
-			if(chk1.test(pwd) || chk2.test(pwd) || chk3.test(pwd)){
-				$("#pwdChkMsg").css("color", "green");
-				$("#pwdChkMsg").text("사용 가능한 비밀번호입니다");
-				$("#checkedPwd").val(pwd);
 			}
+		});
+	}
+}
+
+function isIdChecked() {
+	if(idChecked == true){
+		$("#idChkMsg").css("color", "red");
+		$("#idChkMsg").text("중복확인을 해주세요");
+		idChecked = false;
+	}
+}
+
+function pwdChk() {
+	var chk1 = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,12}$/;   //영문,숫자
+	var chk2 = /^(?=.*[a-zA-Z])(?=.*[~!@#$%^&*()_+|<>?:{}]).{6,12}$/;  //영문,특수문자
+	var chk3 = /^(?=.*[~!@#$%^&*()_+|<>?:{}])(?=.*[0-9]).{6,12}$/;  //특수문자, 숫자
+	
+	var pwd = $("#pwd").val();
+	if(pwd.search(/\s/) == -1){	// 공백 검사
+		if(chk1.test(pwd) || chk2.test(pwd) || chk3.test(pwd)){
+			$("#pwdChkMsg").css("color", "green");
+			$("#pwdChkMsg").text("사용 가능한 비밀번호입니다");
+			return true;
+		}
+	}else{
+		$("#pwdChkMsg").css("color", "red");
+		$("#pwdChkMsg").text("비밀번호 형식을 확인해주세요");
+		return false;
+	}
+}
+
+function pwdSameChk() {
+	var pwd = $("#pwd").val();
+	var pwd2 = $("#pwd2").val();
+	if(pwd == pwd2){
+		$("#pwdSameChkMsg").text("");
+		return true;
+	}else{
+		$("#pwdSameChkMsg").text("비밀번호가 일치하지 않습니다");
+		return false;
+	}
+}
+
+function nameChk() {
+	var chk = /^[가-힣]{2,6}$/;
+	
+	var name = $("#name").val();
+	if(chk.test(name)){
+		$("#nameChkMsg").text("");
+		return true;
+	}else{
+		$("#nameChkMsg").text("이름 형식을 확인해주세요");
+		return false;
+	}
+}
+
+// 문자열 각 글자를 바이트로 환산해서 총 길이 리턴(한글은 2, 영문은 1로 처리)
+function getLength(str) {
+	var ln = 0;	
+	var ch = "";
+	
+	for(var i = 0 ; i < str.length ; i++){
+		ch = str.charAt(i);
+		if(escape(ch).length > 4){
+			ln += 2;
 		}else{
-			$("#pwdChkMsg").css("color", "red");
-			$("#pwdChkMsg").text("비밀번호 형식을 확인해주세요");
-			$("#checkedPwd").val("");
+			ln += 1;
 		}
 	}
+	return ln;
+} 
+
+function nickChk() {
+	var chk = /^[a-zA-Zㄱ-힣]{2,12}$/;
 	
-	function pwdSameChk() {
-		var pwd = $("#pwd").val();
-		var pwd2 = $("#pwd2").val();
-		if(pwd == pwd2){
-			$("#pwdSameChkMsg").text("");
-			$("#checkedPwd2").val(pwd2);
-		}else{
-			$("#pwdSameChkMsg").text("비밀번호가 일치하지 않습니다");
-			$("#checkedPwd2").val("");
-		}
-	}
-	
-	function nameChk() {
-		var chk = /^[가-힣]{2,6}$/;
-		
-		var name = $("#name").val();
-		if(chk.test(name)){
-			$("#nameChkMsg").text("");
-			$("#checkedName").val(name);
-		}else{
-			$("#nameChkMsg").text("이름 형식을 확인해주세요");
-			$("#checkedName").val("");
-		}
-	}
-	
-	// 문자열 각 글자를 바이트로 환산해서 총 길이 리턴
-	function getLength(str) {
-		var ln = 0;
-		var ch = "";
-		
-		for(var i = 0 ; i < str.length ; i++){
-			ch = str.charAt(i);
-			if(escape(ch).length > 4){
-				ln += 2;
-			}else{
-				ln += 1;
-			}
-		}
-		return ln;
-	} 
-	
-	function nickChk() {
-		var chk = /^[a-zA-Zㄱ-힣]{2,12}$/;
-		
-		var nickname = $("#nickname").val();
-		var ln = getLength(nickname);
-		if(!chk.test(nickname) || ln < 4 || ln > 12){	// 닉네임 유효성 검사
-			alert("닉네임 형식을 확인해주세요.");
-			$("#checkedNick").val("");
-			$("#nickname").focus();
-			$("#nickChkMsg").css("color", "red");
-			$("#nickChkMsg").text("중복확인을 해주세요");
-			return;
-		}else{	// 닉네임 중복검사
-			$.ajax({
-				url: "<c:url value='/nickCheck'/>",
-				dataType: "json",
-				data: {nickname:nickname},
-				success: function(data) {
-					if(data.find == true){
-						$("#nickChkMsg").css("color", "red");
-						$("#nickChkMsg").text("중복확인을 해주세요");
-						alert("이미 존재하는 닉네임입니다");
-						$("#nickname").val("");
-						$("#nickname").focus();
-						return;
-					}else{
-						$("#nickChkMsg").css("color", "green");
-						$("#nickChkMsg").text("사용 가능한 닉네임입니다");
-						$("#checkedNick").val(nickname);
-					}
+	var nickname = $("#nickname").val();
+	var ln = getLength(nickname);
+	if(!chk.test(nickname) || ln < 4 || ln > 12){	// 닉네임 유효성 검사
+		alert("닉네임 형식을 확인해주세요.");
+		$("#nickname").focus();
+		$("#nickChkMsg").css("color", "red");
+		$("#nickChkMsg").text("중복확인을 해주세요");
+		return;
+	}else{	// 닉네임 중복검사
+		$.ajax({
+			url: "<c:url value='/nickCheck'/>",
+			dataType: "json",
+			data: {nickname:nickname},
+			success: function(data) {
+				if(data.find == true){
+					$("#nickChkMsg").css("color", "red");
+					$("#nickChkMsg").text("중복확인을 해주세요");
+					alert("이미 존재하는 닉네임입니다");
+					$("#nickname").val("");
+					$("#nickname").focus();
+					return;
+				}else{
+					$("#nickChkMsg").css("color", "green");
+					$("#nickChkMsg").text("사용 가능한 닉네임입니다");
+					nickChecked = true;
 				}
-			});
-		}
+			}
+		});
+	}
+}
+
+function isNickChecked() {
+	if(nickChecked == true){
+		$("#nickChkMsg").css("color", "red");
+		$("#nickChkMsg").text("중복확인을 해주세요");
+		nickChecked = false;
+	}
+}
+
+function phoneChk() {
+	var chk = /^\d{3}-?(\d{3,4})-?(\d{4})$/;
+	
+	var phone = $("#phone1").val() + "-" + $("#phone2").val() + "-" + $("#phone3").val();
+	if(chk.test(phone)){
+		$("#phoneChkMsg").text("");
+		$("#phone").val(phone);
+		return true;
+	}else{
+		$("#phoneChkMsg").text("전화번호 형식을 확인해주세요");
+		$("#phone").val("");
+		return false;
+	}
+}
+
+function validate() {		
+	if(idChecked == false){
+		alert("아이디 중복확인을 해주세요");
+		$("#id").focus();
+		return;
 	}
 	
-	function phoneChk() {
-		var chk = /^\d{3}-?([0-9]{3,4})-?([0-9]{4})$/;
-		
-		var phone = $("#phone1").val() + "-" + $("#phone2").val() + "-" + $("#phone3").val();
-		if(chk.test(phone)){
-			$("#phoneChkMsg").text("");
-			$("#checkedPhone").val(phone);
-		}else{
-			$("#phoneChkMsg").text("전화번호 형식을 확인해주세요");
-			$("#checkedPhone").val("");
-		}
+	if(!pwdChk() || !pwdSameChk()){
+		alert("비밀번호를 확인해주세요");
+		$("#pwd").focus();
+		return;
 	}
 	
-	function validate() {
-		var id = $("#id").val();
-		var checkedId = $("#checkedId").val();
-		var checkedPwd = $("#checkedPwd").val();
-		var checkedPwd2 = $("#checkedPwd2").val();
-		var checkedName = $("#checkedName").val();
-		var checkedNick = $("#checkedNick").val();
-		var nickname = $("#nickname").val();
-		var checkedPhone = $("#checkedPhone").val();
-		
-		if((checkedId != id) 
-				|| id == ""
-				|| checkedId == ""){
-			alert("아이디를 확인해주세요");
-			$("#id").focus();
-			return;
-		}
-		
-		if((checkedPwd != checkedPwd2)
-				|| checkedPwd == ""
-				|| checkedPwd2 == ""){
-			alert("비밀번호를 확인해주세요");
-			$("#pwd").focus();
-			return;
-		}
-		
-		if(checkedName == ""){
-			alert("이름을 확인해주세요");
-			$("#name").focus();
-			return;
-		}
-		
-		if((checkedNick != nickname)
-				|| checkedNick == ""
-				|| nickname == ""){
-			alert("닉네임을 확인해주세요");
-			$("#nickname").focus();
-			return;
-		}
-		
-		if(checkedPhone == ""){
-			alert("전화번호를 확인해주세요");
-			$("#phone2").focus();
-			return;
-		}
-		
-		$("#joinForm").submit();
+	if(!nameChk()){
+		alert("이름을 확인해주세요");
+		$("#name").focus();
+		return;
 	}
+	
+	if(nickChecked == false){
+		alert("닉네임 중복확인을 해주세요");
+		$("#nickname").focus();
+		return;
+	}
+	
+	if(!phoneChk()){
+		alert("전화번호를 확인해주세요");
+		$("#phone2").focus();
+		return;
+	}
+	
+	$("#joinForm").submit();
+}
 </script>
 
 <section class="hami-blog-details-area pt-50">
@@ -205,19 +210,14 @@
 				</div>
 			    <!-- Form -->
 			    <form id = "joinForm" method="post" action="<c:url value ='/join'/>">
-				    <input type = "hidden" id = "checkedId" name = "id">
-					<input type = "hidden" id = "checkedPwd" name = "pwd">
-					<input type = "hidden" id = "checkedPwd2">
-					<input type = "hidden" id = "checkedName" name = "name">
-					<input type = "hidden" id = "checkedNick" name = "nickname">
-					<input type = "hidden" id = "checkedPhone" name = "phone">
+					<input type = "hidden" id = "phone" name = "phone">
 			        <div class="row">
 			        	<!-- 아이디 -->
 			            <div class="col-12 col-lg-3 text-center">
 			                <label for="id" class = "mt-15 bold">아이디</label>
 			            </div>
 			            <div class="col-12 col-lg-4">
-			                <input type="text" id="id" class="form-control" aria-describedby="idHelpBlock">
+			                <input type="text" id="id" name = "id" onkeyup="javascript:isIdChecked()" class="form-control" aria-describedby="idHelpBlock">
 			                <small id="idHelpBlock" class="form-text text-muted mb-30" style = "margin-left: 15px;">
 							  4자 이상 12자 이하 영문, 숫자(띄어쓰기, 특수문자 불가)
 							</small>
@@ -233,7 +233,7 @@
 			                <label for="pwd" class = "mt-15 bold">비밀번호</label>
 			            </div>
 			            <div class="col-12 col-lg-6">
-			                <input type="password" id="pwd" class="form-control" onkeyup="javascript:pwdChk()" aria-describedby="passwordHelpBlock">
+			                <input type="password" id="pwd" name = "pwd" class="form-control" onkeyup="javascript:pwdChk()" aria-describedby="passwordHelpBlock">
 			                <small id="passwordHelpBlock" class="form-text text-muted mb-30" style = "margin-left: 15px;">
 							  영어 대/소문자, 숫자, 특수문자 중 2가지 이상 조합 6자~12자(띄어쓰기 불가)
 							</small>
@@ -255,7 +255,7 @@
 			                <label for="name" class = "mt-15 bold">성명</label>
 			            </div>
 			            <div class="col-12 col-lg-6">
-			                <input type="text" id="name" class="form-control" onkeyup="javascript:nameChk()" aria-describedby="nameHelpBlock">
+			                <input type="text" id="name" name = "name" class="form-control" onkeyup="javascript:nameChk()" aria-describedby="nameHelpBlock">
 			                <small id="nameHelpBlock" class="form-text text-muted mb-30" style = "margin-left: 15px;">
 							  한글 2자~6자(띄어쓰기 불가)
 							</small>
@@ -268,7 +268,7 @@
 			                <label for="nickname" class = "mt-15 bold">필명(닉네임)</label>
 			            </div>
 			            <div class="col-12 col-lg-4">
-			                <input type="text" id="nickname" class="form-control" aria-describedby="nicknameHelpBlock">
+			                <input type="text" id="nickname" name = "nickname" onkeyup="javascript:isNickChecked()" class="form-control" aria-describedby="nicknameHelpBlock">
 			                <small id="nicknameHelpBlock" class="form-text text-muted mb-30" style = "margin-left: 15px;">
 							  영문 4자~12자,한글 2자~6자(띄어쓰기, 특수문자 불가)
 							</small>
